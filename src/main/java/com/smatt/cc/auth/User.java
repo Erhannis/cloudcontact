@@ -5,6 +5,7 @@
  */
 package com.smatt.cc.auth;
 
+import java.util.Date;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 
@@ -17,21 +18,20 @@ public class User {
     
     @Id
     private ObjectId id;
-    private String username = "";
     @Indexed(options = @IndexOptions(unique = true))
     private String email = "";
     private String salt = "";
     private String verifier = "";
     private String token = "";
+    @Embedded
+    public UserInfo info = new UserInfo();
     
     
     public User() {
         
     }
     
-    public User(String username, String email, String salt, String verifier ) {
-        
-		this.username = username;
+    public User(String email, String salt, String verifier ) {
 		this.salt = salt;
 		this.verifier = verifier;
 		this.email = email;
@@ -62,14 +62,6 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getVerifier() {
         return verifier;
     }
@@ -91,10 +83,6 @@ public class User {
     
     @Override
     public String toString() {
-        return "USER " + getId() + " : " + getUsername() + " : " + getEmail();
+        return "USER " + getId() + " (" + info.name + ", " + info.dob + ") : " + getEmail();
     }
-    
-    
-    
-    
 }

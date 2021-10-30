@@ -260,7 +260,7 @@ body {
 	color: rgba(0,0,0,.4) !important;
 }
 
-#username, #email, #password1, #password2, #password {
+#email, #password1, #password2, #password {
 	border: 2px solid rgba(0,0,0,.4);
 	border-radius: 0;
 	text-align: center;
@@ -273,13 +273,13 @@ body {
 	transition: padding 1s linear;
 }
 
-#username:focus, #email:focus, #password1:focus, #password2:focus, #password:focus {
+#email:focus, #password1:focus, #password2:focus, #password:focus {
 	padding: 5px 5px; 
 	outline-color: transparent;
 	outline-style: none; 
 }
 
-#username:hover, #email:hover, #password1:hover, #password2:hover, #password:hover {
+#email:hover, #password1:hover, #password2:hover, #password:hover {
 	border-color: #104774;
 }
 

@@ -21,7 +21,7 @@ public class ChallengeGen {
 
 	/**
 	 * This class is for authentication
-	 * it will accept the username and use it to
+	 * it will accept the email and use it to
 	 * compute challenge B
 	 * it will then send the challenge to the client alongside salt 's' stored for the user 
 	 * to the client, it will have to persist the challenge object
