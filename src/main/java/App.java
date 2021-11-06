@@ -33,10 +33,7 @@ public class App {
 
     Logger logger = LoggerFactory.getLogger(App.class);
     
-    
     public App() {
-		
-		
 		//setup Sparkjava
         //this tells sparkjava that our static files are in the public dir
 		staticFileLocation("/public"); 
@@ -44,21 +41,19 @@ public class App {
 		
 		//initiate our DatabaseHelper that will map our Model Classes
 		new DatabaseHelper();
-		
-           
                 
-                //ensure user is logged in to have access to protected routes
-                before("/*/", (req, res) -> {
-                    Session session = req.session(true);
-                    boolean auth = session.attribute(Path.Web.AUTH_STATUS) != null  ? 
-                                    session.attribute(Path.Web.AUTH_STATUS) : false;
-                    logger.info("auth status = " + auth);
-                    if(!auth) {
-                        logger.warn("Secured Area! Login is REQUIRED");
-                        res.redirect(Path.Web.GET_LOGIN_PAGE);
-                       halt(401);
-                    }
-                });
+        //ensure user is logged in to have access to protected routes
+        before("/*/", (req, res) -> {
+            Session session = req.session(true);
+            boolean auth = session.attribute(Path.Web.AUTH_STATUS) != null  ? 
+                            session.attribute(Path.Web.AUTH_STATUS) : false;
+            logger.info("auth status = " + auth);
+            if(!auth) {
+                logger.warn("Secured Area! Login is REQUIRED");
+                res.redirect(Path.Web.GET_LOGIN_PAGE);
+               halt(401);
+            }
+        });
                 
 //		Handle homepage routes
 		get(Path.Web.HOME, (req, res) -> IndexController.serveHomePage(req, res), new HandlebarsTemplateEngine());

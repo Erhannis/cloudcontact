@@ -11,6 +11,6 @@ import java.util.Date;
  * @author erhannis
  */
 public class UserInfo {
-    public String name = "";
+    public String name = ""; //TODO This is sensitive info - do we need it?
     public Date dob = new Date();
 }
