@@ -9,18 +9,56 @@ misc concerns
   materials
     the more digital, the easier it will be on me
     BUT digital isn't as physically present
+      decide what you want to min/max I guess
   assistants/team?
     bleh, finding people - but it'd help the event go well, I expect
   consider that conventions have bad internet; might NEED app
     "progressive web app", service workers
     text message notifications
+      ensure that after registration, you can use strictly the text system
+        rx schedule
+	rx reminder
+	tx confirm presence
+	tx cancel
   provide users with detailed flowchart, as below?
   maybe have some manga at the Hangout Couch  :P
     should probably limit the number of hangers-out to a reasonable number.  :P
+    also, "Hanging out at the Hangout Couch is a signal you're single"
+  hmm...should account for natural human lateness?
+    also for scheduling running right up against each other
 
 events contain
   sessions contain
     dates
+
+there are future events, current events, and past events
+  might count current events as past, more-or-less
+
+pages
+  (schedule?event=blah)
+  account_signup
+  confirm
+  account_details
+    delete account (warn flags)
+  event_signup
+  schedule_signup
+  schedule
+    (past and future)
+    cancel
+    flag date AWOL?
+  confirm presence
+    (pop up alert on all pages when confirm is needed)
+  flags
+    ?
+  matches
+  explanation
+  about
+
+page notes
+  most all have "event" param
+  changing criteria/details within 2 hours of a session either doesn't update, or results in flags
+  don't return match data from a deleted account
+
 
 user process
   qr code, link -> schedule?event=blah (-> registration, if not logged in)
@@ -44,16 +82,21 @@ user process
   user provide max count
     ("How many sessions can you attend?  sessions are an hour[?] long, containing 6 ten-minute speed dates.")
       Do we have instructions at the beginning?
-      Probably better to put it 
+      Probably better to put it on posters, site, etc.
+      But also - probably should have 5-10 min grace-period.  Make first date long?
+        nah - but they can start early if wanted
+	or - 5 min rest at start, AND 5 min rest at end?
     also preferred count?
     more complex criteria?
     min notice time?
   at some point, gen schedule
     day of?
     N hours in advance?
+      let's say, 2 hours
     continuous, but fixed later?
     they probably won't be told their pairs until it's time - just when to show up
       recommend them to check schedule every N-1 hours?
+      (countermanded by later bullet point, though)
     criteria:
       fairness (tempered by demand)
       max sessions
@@ -68,6 +111,7 @@ user process
     scan QR at entry to confirm attendance?
     user texts a code?
     or provide badge/name/email/id?
+    there's a window, like, 5:50-6:13, (start at 6:10), where they can clock in
   (user misses appointment?)
     flag user; two strikes you're out?
       recover after a year or two?  or after three events?
@@ -75,11 +119,15 @@ user process
   (user cancels)
     still a problem, but I appreciate their honesty
     maybe...you get one free cancel per event?  then it turns to half-flags?  two-thirds flags?
+      2 miss = ban
+      3 cancel = ban
+      2 cancel, 1 miss = ban
   big sign says check your schedule
     I may not be allowed to provide a person's schedule (without proof of identity), lest a schedule be stolen
       also that's work
     ...how much help am I willing to provide?
       get team?
+    could trigger schedule send via text/email/site
   user sits down at table
     date sits down at table
     allowed to flag date AWOL at the 1:00.000 mark?
@@ -103,6 +151,7 @@ user process
       eh.  maybe later.  bring paper, you lazies.
       it'd probably be a good addition, but it's not critical.
     buzzer goes off / I yell
+      or they get a text?  probably bad to text 20 ppl in the same room
     time for next date
   then they're done, and they leave
     and GET MARRIED AND LIVE HAPPILY EVER AFTER WITH THEIR NEW SOULMATE ;P
@@ -110,4 +159,5 @@ user process
 
 out-of-flow events
   report incidents?  (ugh, then I'd have to DEAL with incidents...)
+    as noted - I think I can leave that to con staff  :)
   
