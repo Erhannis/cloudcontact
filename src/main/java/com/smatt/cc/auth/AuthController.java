@@ -39,7 +39,7 @@ public class AuthController {
     }
 
     public static ModelAndView serveLoginPage(Request req, Response res) {
-        return new ModelAndView(null, Path.Templates.LOGIN);
+        return new ModelAndView(null, "003000_login.hbs");
     }
 
     public static Object handleLogin(Request req, Response res) {
@@ -51,7 +51,7 @@ public class AuthController {
     }
 
     public static ModelAndView serveSignUpPage(Request req, Response res) {
-        return new ModelAndView(null, Path.Templates.SIGN_UP);
+        return new ModelAndView(null, "001000_account_signup.hbs");
     }
 
     public static Object handleSignUp(Request req, Response res) {
@@ -63,7 +63,7 @@ public class AuthController {
         if (session != null) {
             session.invalidate();
         }
-        res.redirect(Path.Web.HOME);
+        res.redirect("/");
         return res;
     }
 
@@ -138,7 +138,7 @@ public class AuthController {
                 response.put("M2", M2);
                 response.put("code", "200");
                 response.put("status", "success");
-                response.put("target", Path.Web.DASHBOARD);
+                response.put("target", "/contacts/"); //TODO Replace?
 
                 String respjson = gson.toJson(response);
                 logger.info("Final response sent By doAuth to client = " + respjson);

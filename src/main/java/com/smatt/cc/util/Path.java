@@ -17,28 +17,7 @@ public class Path {
     }
 
     public static class Web {
-
-//            this subclass holds the Web related static properties like routes
-//            and others.
-        public static String HOME = "/";
-
-//		log in routes
-        public static String GET_LOGIN_PAGE = "/login";
-        public static String DO_LOGIN = "/login";
-        public static String DO_AUTH = "/auth";
-        public static String LOGOUT = "/logout";
-
-//		routes for performing crud on contact
-        public static String DASHBOARD = "/contacts/";
-        public static String DELETE = "/contact/:id"; //uses delete http method
-        public static String UPDATE = "/contact/:id"; //uses put http method; data is contained in req body
-        public static String NEW = "/contact/"; //uses post http method; data is contained in req body
-
-//		routes for managing users / authentication
-        public static String GET_SIGN_UP = "/signup"; //uses get method
-        public static String DO_SIGN_UP = "/signup"; //uses post method
-        public static String NEW_USER = "/user"; //uses post method
-        public static String UPDATE_PWD = "/s/user/:id"; //uses put method
+//        public static String UPDATE_PWD = "/s/user/:id"; //uses put method
 
         public static String ATTR_USER_ID = "userId";
         public static String ATTR_EMAIL = "email";
@@ -48,15 +27,6 @@ public class Path {
         public static int SESSION_TIMEOUT = 60 * 30; //30 mins
         public static String JSON_TYPE = "application/json";
         public static String AUTH_STATUS = "AUTH_STATUS";
-    }
-
-    public static class Templates {
-
-        public static String INDEX = "index.hbs";
-        public static String DASHBOARD = "main.hbs";
-        public static String LOGIN = "signin.hbs";
-        public static String SIGN_UP = "signup.hbs";
-
     }
 
     public static class Database {

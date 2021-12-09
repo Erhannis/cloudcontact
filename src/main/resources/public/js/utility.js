@@ -6,7 +6,7 @@ function showDetails(data) {
     if(data) {
 //    console.log("data in showDetails \n" + JSON.stringify(data));
     
-                $("#viewFirstName").html(data.first_name);
+        $("#viewFirstName").html(data.first_name);
 		$("#viewMiddleName").html(data.middle_name);
 		$("#viewLastName").html(data.last_name);
 		$("#viewMobile").html(data.mobile);
@@ -14,8 +14,8 @@ function showDetails(data) {
 		$("#viewAddress").html(data.address);
 		$("#viewEmail").html(data.email);
 		$("#viewWork").html(data.work);
-		$("#viewHome").html(data.home);
-                $("#viewNote").html(data.note);
+        $("#viewHome").html(data.home);
+        $("#viewNote").html(data.note);
                 
 //                console.log("show details called");
     }
@@ -24,8 +24,8 @@ function showDetails(data) {
 //this is called everytime a view button is clicked from the table for a row
 function loadEditDetails(data) {
      if(data) {
-                $("#newId").val(data.id);
-                $("#newFirstName").val(data.first_name);
+        $("#newId").val(data.id);
+        $("#newFirstName").val(data.first_name);
 		$("#newMiddleName").val(data.middle_name);
 		$("#newLastName").val(data.last_name);
 		$("#newMobile").val(data.mobile);
@@ -34,13 +34,13 @@ function loadEditDetails(data) {
 		$("#newEmail").val(data.email);
 		$("#newWork").val(data.work);
 		$("#newHome").val(data.home);
-                $("#newNote").val(data.note);
-            }
+        $("#newNote").val(data.note);
+    }
 }
 
 
 function clearEditDetails() {
-                $("#newFirstName").val("");
+        $("#newFirstName").val("");
 		$("#newMiddleName").val("");
 		$("#newLastName").val("");
 		$("#newMobile").val("");
@@ -49,7 +49,7 @@ function clearEditDetails() {
 		$("#newEmail").val("");
 		$("#newWork").val("");
 		$("#newHome").val("");
-                $("#newNote").html("");
+        $("#newNote").html("");
 }
 
 
@@ -62,7 +62,7 @@ function saveEdit(data) {
     
             $.ajax({
              type: "put",
-             url: "/contact/" + data.id,
+             url: "/put/contact/" + data.id,
              data: JSON.stringify(data),
              contentType: "application/json",
              success: function() {
@@ -88,7 +88,7 @@ function saveNew(data) {
     console.log("Save New data = \n" + JSON.stringify(data));
      $.ajax({
          type: "post",
-         url: "/contact/",
+         url: "/post/contact/",
          data: JSON.stringify(data),
          contentType: "application/json",
          success: function() {
@@ -111,7 +111,7 @@ function deleteData(id) {
  if(id) {
     $.ajax({
        type: "delete",
-       url: "/contact/" + id  ,
+       url: "/delete/contact/" + id  ,
        success: function() {
             $("#alertBox").css({"background-color": "rgba(16,71,116,0.9)"});
            $("#log").html("<strong>DELETED SUCCESSFULLY!</strong>");

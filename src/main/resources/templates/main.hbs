@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{{> head.hbs}}
+{{> fragments/head.hbs}}
 
 <body>
  
@@ -24,7 +24,7 @@
 	<input type="button" name="sm-newBt" id="sm-newBt" value="NEW CONTACT" />
     </div>
  
-{{> progress_indicator.hbs}}
+{{> fragments/progress_indicator.hbs}}
     
 <div class="split-pane fixed-left">
 	
@@ -156,14 +156,14 @@
 
 
 
-    {{> confirm_modal.hbs}}
+    {{> fragments/confirm_modal.hbs}}
     
-    {{> new_edit_modal.hbs}}
+    {{> fragments/new_edit_modal.hbs}}
     
-    {{> profile_modal.hbs}}
+    {{> fragments/profile_modal.hbs}}
     
 
-    {{> footer.hbs}}
+    {{> fragments/footer.hbs}}
 
 </body>
 

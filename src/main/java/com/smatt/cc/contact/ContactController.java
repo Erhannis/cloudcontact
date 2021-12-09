@@ -52,15 +52,15 @@ public class ContactController {
             model.putAll(prepareData(userId));
             model.put("email", (email == null) ? "" : email);
 
-            ModelAndView mv = new ModelAndView(model, Path.Templates.DASHBOARD);
+            ModelAndView mv = new ModelAndView(model, "main.hbs"); //TODO Replace?
 
 //                logger.info("userId = " + userId + "\nmodel returned = " + mv.getModel().toString());
             return mv;
 
         } else {
             logger.warn("userID not found in Session"); //session expired
-            res.header("Location", Path.Web.GET_LOGIN_PAGE);
-            res.redirect(Path.Web.GET_LOGIN_PAGE);
+            res.header("Location", "/login");
+            res.redirect("/login");
             return null;
         }
     }
