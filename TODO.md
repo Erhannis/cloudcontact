@@ -147,6 +147,7 @@ user process
 	  would result in flags.
 	maybe support unmatching after a timeout?  like, a week?
 	  maybe I'll add that later.
+          note, it probably WOULD be weird if your match from three years ago could see the updates to your Match Text.
     can take notes?
       eh.  maybe later.  bring paper, you lazies.
       it'd probably be a good addition, but it's not critical.

@@ -1,0 +1,50 @@
+<div>
+    <h3>Information the user uploads, and how the site uses it</h3>
+    <h4>Definitions</h4>
+    <ul>
+        <li>the Service: this website, system, etc.</li>
+        <li>(speed) date: a ~10 minute conversation between two people, coordinated by the Service.</li>
+        <li>session: a collection of dates.  For example, "Sal attended the sessions at 10 AM, 11 AM, and 3 PM, participating in 5 dates per session."</li>
+        <li>event: a collection of sessions, across several days.  Also the e.g. convention/festival at which the sessions are taking place.</li>
+        <li>match: when you attend a speed date, the site provides a button to confirm a match.  If (and only if) both participants hit the button, they Match.</li>
+        <li>Match Text: when you register, you may provide text (a phone number, twitter handle, etc.) the system will show your Matches so they can contact you.  If you don't fill this out, it defaults to your provided email.</li>
+    </ul>
+    <h4>Uses of information</h4>
+    It is assumed that everything you give the Service is used <i>internally by the system</i> for various purposes - scheduling, login, pairing compatible preferences, etc.
+    <i>External</i> uses of the data (i.e., the times when a human being will see the data) are as follows.
+    <ul>
+        <li>Email address</li>
+        <ul>
+            <li>Given to matches if Match Text is empty.</li>
+            <li>Used to send you emails (password reset, summary emails, ban notifications, etc.)</li>
+            <li>Not given to any other party.</li>
+        </ul>
+        <li>Password</li>
+        <ul>
+            <li>Actually, this never leaves your browser, and is forgotten once you log in.  The browser uses an implementation of SRP-6 to perform a zero-knowlege proof that you have the password.</li>
+        </ul>
+        <li>Phone number (optional)</li>
+        <ul>
+            <li>Used to notify you of schedule changes.</li>
+        </ul>
+        <li>Match Text</li>
+        <ul>
+            <li>Anyone you are Matched with can see your Match Text.  Warning: the only supported way to undo a match is by closing your account.</li>
+        </ul>
+        <li>Gender</li>
+        <ul>
+            <li>Used to pair people.</li>
+        </ul>
+        <li>Gender preference</li>
+        <ul>
+            <li>Used to pair people.</li>
+        </ul>
+        <li>Your interactions with the system</li>
+        <ul>
+            <li>Your date can tell you scheduled for a session, because they got paired with you, obviously</li>
+            <li>Dates may be informed if you cancel</li>
+            <li>Dates may be informed if you are late</li>
+            <li>Matches know you Matched with them, duh</li>
+        </ul>
+    </ul>
+</div>
