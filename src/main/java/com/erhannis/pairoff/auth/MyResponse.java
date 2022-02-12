@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.smatt.cc.auth;
+package com.erhannis.pairoff.auth;
 
 import com.google.gson.Gson;
 

@@ -1,18 +1,18 @@
 /**
  *
  */
-package com.smatt.cc.contact;
+package com.erhannis.pairoff.contact;
 
-import com.smatt.cc.db.DatabaseHelper;
+import com.erhannis.pairoff.db.DatabaseHelper;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.smatt.cc.util.Message;
+import com.erhannis.pairoff.util.Message;
 import java.util.HashMap;
 import java.util.List;
 import org.mongodb.morphia.Datastore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.smatt.cc.util.Path;
+import com.erhannis.pairoff.util.Path;
 import java.util.Date;
 import org.bson.types.ObjectId;
 import org.jsoup.Jsoup;

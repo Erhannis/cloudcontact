@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.smatt.cc.auth;
+package com.erhannis.pairoff.auth;
 
 import com.mongodb.DuplicateKeyException;
-import com.smatt.cc.db.DatabaseHelper;
+import com.erhannis.pairoff.db.DatabaseHelper;
+import com.erhannis.pairoff.model.User;
 import java.util.List;
 import org.mongodb.morphia.Datastore;
 import org.slf4j.Logger;

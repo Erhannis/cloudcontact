@@ -1,3 +1,14 @@
+TODO
+  make UI
+  make models
+    user
+    event
+    session
+    date
+  make logic
+  hook it together
+
+
 security/legal concerns
   name, dob, email, phone are PII
   cookies warning

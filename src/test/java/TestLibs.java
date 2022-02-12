@@ -1,5 +1,5 @@
 
-import com.smatt.cc.db.DatabaseHelper;
+import com.erhannis.pairoff.db.DatabaseHelper;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.smatt.cc.db;
+package com.erhannis.pairoff.db;
 
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.smatt.cc.auth.User;
-import com.smatt.cc.contact.Contact;
-import com.smatt.cc.util.Path;
+import com.erhannis.pairoff.model.User;
+import com.erhannis.pairoff.contact.Contact;
+import com.erhannis.pairoff.util.Path;
 
 /**
  * @author Seun Matt

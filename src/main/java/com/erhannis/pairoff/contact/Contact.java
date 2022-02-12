@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.smatt.cc.contact;
+package com.erhannis.pairoff.contact;
 
 import java.util.Date;
 

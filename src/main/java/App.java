@@ -13,14 +13,13 @@
 import com.bitbucket.thinbus.srp6.js.SRP6JavascriptServerSessionSHA256;
 import static spark.Spark.*;
 
-import com.smatt.cc.auth.AuthController;
-import com.smatt.cc.auth.ChallengeGen;
-import com.smatt.cc.contact.ContactController;
-import com.smatt.cc.db.DatabaseHelper;
-import com.smatt.cc.index.IndexController;
-import com.smatt.cc.util.JsonTransformer;
-
-import com.smatt.cc.util.Path;
+import com.erhannis.pairoff.auth.AuthController;
+import com.erhannis.pairoff.auth.ChallengeGen;
+import com.erhannis.pairoff.contact.ContactController;
+import com.erhannis.pairoff.db.DatabaseHelper;
+import com.erhannis.pairoff.index.IndexController;
+import com.erhannis.pairoff.util.JsonTransformer;
+import com.erhannis.pairoff.util.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Session;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.smatt.cc.util;
+package com.erhannis.pairoff.util;
 
 import com.google.gson.Gson;
 import org.slf4j.Logger;

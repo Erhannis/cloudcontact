@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.smatt.cc.util;
+package com.erhannis.pairoff.util;
 
 /**
  * @author Seun Matt Date 13 Oct 2016 Year 2016 (c) SMATT Corporation

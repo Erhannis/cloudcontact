@@ -1,12 +1,13 @@
 /**
  *
  */
-package com.smatt.cc.auth;
+package com.erhannis.pairoff.auth;
 
 import com.bitbucket.thinbus.srp6.js.SRP6JavascriptServerSessionSHA256;
+import com.erhannis.pairoff.model.User;
 import com.google.gson.Gson;
 import com.nimbusds.srp6.SRP6CryptoParams;
-import com.smatt.cc.util.Path;
+import com.erhannis.pairoff.util.Path;
 import java.util.HashMap;
 import org.jsoup.Jsoup;
 import org.slf4j.Logger;
@@ -129,10 +130,10 @@ public class AuthController {
                 Session session = req.session(true);
                 session.maxInactiveInterval(Path.Web.SESSION_TIMEOUT);
                 User user = UserController.getUserByEmail(email);
-                session.attribute(Path.Web.ATTR_USER_ID, user.getId().toString()); //saves the id as String
+                session.attribute(Path.Web.ATTR_USER_ID, user.id.toString()); //saves the id as String
                 session.attribute(Path.Web.AUTH_STATUS, authenticate.authenticated);
-                session.attribute(Path.Web.ATTR_EMAIL, user.getEmail());
-                session.attribute(Path.Web.ATTR_NAME, user.info.name);
+                session.attribute(Path.Web.ATTR_EMAIL, user.email);
+                session.attribute(Path.Web.ATTR_NAME, user.name); //TODO ??
                 logger.info(user.toString() + " Has Logged In Successfully");
 
                 response.put("M2", M2);

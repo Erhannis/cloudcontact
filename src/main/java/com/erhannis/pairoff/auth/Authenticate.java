@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.smatt.cc.auth;
+package com.erhannis.pairoff.auth;
 
 import java.util.HashMap;
 import com.bitbucket.thinbus.srp6.js.SRP6JavascriptServerSessionSHA256;

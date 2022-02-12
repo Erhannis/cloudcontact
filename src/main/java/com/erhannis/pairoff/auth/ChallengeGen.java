@@ -1,13 +1,13 @@
 /**
  * 
  */
-package com.smatt.cc.auth;
+package com.erhannis.pairoff.auth;
 
 import java.util.HashMap;
 
 import com.bitbucket.thinbus.srp6.js.SRP6JavascriptServerSessionSHA256;
 import com.google.gson.Gson;
-import com.smatt.cc.auth.User;
+import com.erhannis.pairoff.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,8 +48,8 @@ public class ChallengeGen {
 		User user = UserController.getUserByEmail(email);
 		
 		if(user != null) {
-			verifier = user.getVerifier();
-			salt = user.getSalt();
+			verifier = user.verifier;
+			salt = user.salt;
                         logger.info("Salt = " + salt + "\nVerifier = " + verifier);
 
                         String B = server.step1(email, salt, verifier);

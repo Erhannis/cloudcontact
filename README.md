@@ -1,6 +1,8 @@
 
-ARCHIVED REPO.
-===============
+# Fork of CloudContact
+This is a speed dating website, now.
+
+More-or-less original README follows.
 
 The active version is [cloudcontact-maven](https://github.com/SeunMatt/cloudcontact-maven)
 ------------------------------------------------------------------------------------------
@@ -172,11 +174,12 @@ the Controller and the Model are all placed in the same package. Same goes for o
 
 1. The default package contains the App.java which is the entry point of the app.
 2. com.bitbucket.thinbus.srp6.js contains the Classes required for authentication using thinbus implementation of SRP6 Protocol
-3. com.smatt.cc.auth contains the classes for required for handling the authentication process.
-4. com.smatt.cc.contact contains classes that handle all contacts related works including CRUD operations
-5. com.smatt.cc.db contains our Database Helper class which makes connection to the database via morphia
-6. com.smatt.cc.index contains the IndexController which deals with request for the HomePage
-7. com.smatt.cc.util contains utility classes like Path.java which contains all our constants used throughout the program
+3. com.erhannis.pairoff.models contain the data models.
+4. com.erhannis.pairoff.auth contains the classes for required for handling the authentication process.
+5. com.erhannis.pairoff.contact contains classes that handle all contacts related works including CRUD operations
+6. com.erhannis.pairoff.db contains our Database Helper class which makes connection to the database via morphia
+7. com.erhannis.pairoff.index contains the IndexController which deals with request for the HomePage
+8. com.erhannis.pairoff.util contains utility classes like Path.java which contains all our constants used throughout the program
 
 Now, let's examine the work flow of the Application based on the features of Cloud Contacts. 
 

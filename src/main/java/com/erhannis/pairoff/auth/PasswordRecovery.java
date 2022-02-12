@@ -1,7 +1,9 @@
+package com.erhannis.pairoff.auth;
+
 ///**
 // * 
 // */
-//package com.smatt.cc.auth;
+//package com.erhannis.pairoff.auth;
 //
 //import com.mysinno.mail.MailAuth;
 //import com.mysinno.mail.SendMail;

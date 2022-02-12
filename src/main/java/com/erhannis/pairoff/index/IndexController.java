@@ -1,9 +1,9 @@
 /**
  * 
  */
-package com.smatt.cc.index;
+package com.erhannis.pairoff.index;
 
-import com.smatt.cc.util.Path;
+import com.erhannis.pairoff.util.Path;
 
 import spark.ModelAndView;
 import spark.Request;
