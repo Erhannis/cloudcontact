@@ -5,9 +5,9 @@ apply plugin: 'java'
 apply plugin: 'application'
 
 //root directory of the project 
-archivesBaseName='cloudcontact'
+archivesBaseName='pairoff'
 version="1.0.0"
-applicationName="cloudcontact"
+applicationName="pairoff"
 
 //this is the entry point of the app that contains our main method
 //this property is required is you apply the application plugin as we did above

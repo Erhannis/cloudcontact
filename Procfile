@@ -1,1 +1,1 @@
-web: ./build/install/cloudcontact/bin/cloudcontact
+web: ./build/install/pairoff/bin/pairoff
