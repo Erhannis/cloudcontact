@@ -14,14 +14,17 @@ public class User {
     
     @Id
     public ObjectId id;
+    
     @Indexed(options = @IndexOptions(unique = true))
-    public String email = "";
-    public String salt = "";
+    public String email = ""; //SENSITIVE
+    public String salt = ""; //TODO Are these sensitive?
     public String verifier = "";
     public String token = "";
     
-    public String name = ""; //TODO This is sensitive info - do we need it?
-    public Date dob = new Date();
+    public String name = ""; //SENSITIVE //TODO This is sensitive info - do we need it?
+    public Date dob = new Date(); //SENSITIVE
+    //TODO Unique?
+    public String phone; //SENSITIVE
     
     
     public User() {
@@ -36,6 +39,6 @@ public class User {
     
     @Override
     public String toString() {
-        return "USER " + id + " (" + name + ", " + dob + ") : " + email;
+        return "User{"+id+":" + name + ", " + dob +", "+ email + ", "+phone+"}"; //SECURITY //TODO Should we have these sensitive fields here?
     }
 }

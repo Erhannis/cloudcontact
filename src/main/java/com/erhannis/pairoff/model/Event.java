@@ -11,8 +11,8 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 
-@Entity("session_tbl")
-public class Session {
+@Entity("event_tbl")
+public class Event {
     
     @Id
     private ObjectId id;
@@ -22,14 +22,14 @@ public class Session {
     @Reference
     public Location location;
     @Reference
-    public List<SpeedDate> speedDates = new ArrayList<SpeedDate>();
+    public List<Session> sessions = new ArrayList<Session>();
     
     
-    public Session() {
+    public Event() {
         
     }
     
-    public Session(Date starttime, long duration, Location location) {
+    public Event(Date starttime, long duration, Location location) {
 		this.starttime = starttime;
 		this.duration = duration;
         this.location = location;
@@ -37,6 +37,6 @@ public class Session {
     
     @Override
     public String toString() {
-        return "Session{"+id+":" + starttime + ", " + duration + ", @"+location+"}";
+        return "Event{"+id+":" + starttime + ", " + duration + ", @"+location+"}";
     }
 }

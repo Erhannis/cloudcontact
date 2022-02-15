@@ -11,8 +11,13 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 
-@Entity("session_tbl")
-public class Session {
+@Entity("speeddate_tbl")
+public class SpeedDate {
+    public static enum Attendance {
+        ON_TIME,
+        LATE,
+        ABSENT
+    }
     
     @Id
     private ObjectId id;
@@ -22,14 +27,26 @@ public class Session {
     @Reference
     public Location location;
     @Reference
-    public List<SpeedDate> speedDates = new ArrayList<SpeedDate>();
+    public User userA;
+    @Reference
+    public User userB;
+
+    /*
+    //TODO How to deal with results, and/or changes over time?
+    Users must demonstrate presence at a Session - should they also have to for each SpeedDate?
+      That sounds a bit much - people are going to be forgetting, left and right.
+    //TODO If a User is stood up, should we try harder to match them more in the future?
+        That might be nice, but sounds like it opens a can of worms.  Consider later.
     
+    */
+    public Attendance userAAttendance;
+    public Attendance userBAttendance;
     
-    public Session() {
+    public SpeedDate() {
         
     }
     
-    public Session(Date starttime, long duration, Location location) {
+    public SpeedDate(Date starttime, long duration, Location location) {
 		this.starttime = starttime;
 		this.duration = duration;
         this.location = location;
