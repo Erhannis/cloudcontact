@@ -54,6 +54,6 @@ public class SpeedDate {
     
     @Override
     public String toString() {
-        return "Session{"+id+":" + starttime + ", " + duration + ", @"+location+"}";
+        return "SpeedDate{"+id+":" + starttime + ", " + duration + ", @"+location+", ("+userA+":"+userB+")}";
     }
 }
