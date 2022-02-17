@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  * Year 2016
  * (c) SMATT Corporation
  */
-
+//DO Remove
 @Entity("contacts")
 public class Contact {
 

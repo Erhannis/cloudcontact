@@ -25,6 +25,7 @@ import spark.Session;
 /**
  * @author Seun Matt Date 13 Oct 2016 Year 2016 (c) SMATT Corporation
  */
+//DO Remove
 public class ContactController {
 
     /**
@@ -41,6 +42,7 @@ public class ContactController {
 
         //get user particulars from the req.session
         //they must not be null, else the user wil be redirected to the login page
+        //TODO This doesn't work; it just throws an NPE
         String userId = req.session(false).attribute(Path.Web.ATTR_USER_ID).toString();
         String email = req.session(false).attribute(Path.Web.ATTR_EMAIL).toString();
 

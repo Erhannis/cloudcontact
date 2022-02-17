@@ -62,7 +62,7 @@ function saveEdit(data) {
     
             $.ajax({
              type: "put",
-             url: "/put/contact/" + data.id,
+             url: "/s/put/contact/" + data.id,
              data: JSON.stringify(data),
              contentType: "application/json",
              success: function() {
@@ -88,7 +88,7 @@ function saveNew(data) {
     console.log("Save New data = \n" + JSON.stringify(data));
      $.ajax({
          type: "post",
-         url: "/post/contact/",
+         url: "/s/post/contact/",
          data: JSON.stringify(data),
          contentType: "application/json",
          success: function() {
@@ -111,7 +111,7 @@ function deleteData(id) {
  if(id) {
     $.ajax({
        type: "delete",
-       url: "/delete/contact/" + id  ,
+       url: "/s/delete/contact/" + id  ,
        success: function() {
             $("#alertBox").css({"background-color": "rgba(16,71,116,0.9)"});
            $("#log").html("<strong>DELETED SUCCESSFULLY!</strong>");

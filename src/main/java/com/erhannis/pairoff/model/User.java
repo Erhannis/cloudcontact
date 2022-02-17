@@ -44,13 +44,17 @@ public class User {
     public String verifier = "";
     public String token = "";
     
+    public boolean acceptedTOS = false; // Required
     public String name = ""; // Required //SENSITIVE //TODO This is sensitive info - do we need it?
     public Date dob = new Date(); // Required //SENSITIVE
     //TODO Unique?
     public String phone; // Optional //SENSITIVE
-    public Map<Date, String> matchInfo = new HashMap<>(); // Required //SENSITIVE
+    public Map<Date, String> matchInfo = new HashMap<>(); // Optional, technically //SENSITIVE
     public Gender gender; // Required //SENSITIVE
     public Set<Gender> attractedTo = new HashSet<>(); // Required //SENSITIVE
+    //TODO Once a year, suggest update
+    public Integer minAge = null; // Optional // In years
+    public Integer maxAge = null; // Optional // In years
     
     public User() {
         
@@ -60,6 +64,29 @@ public class User {
 		this.salt = salt;
 		this.verifier = verifier;
 		this.email = email;
+    }
+    
+    public boolean isComplete() {
+        boolean complete = true;
+        complete &= (acceptedTOS);
+        complete &= (name != null && !name.isEmpty());
+        complete &= (dob != null);
+        complete &= (gender != null);
+        complete &= (!attractedTo.isEmpty());
+        return complete;
+    }
+    
+    public String nextStep() {
+        if (!acceptedTOS) {
+            return "TOS";
+        }
+        if ((name == null || name.isEmpty()) || (dob == null)) {
+            return "DETAILS";
+        }
+        if ((gender == null) || (attractedTo.isEmpty())) {
+            return "DETAILS2";
+        }
+        return null;
     }
     
     @Override
