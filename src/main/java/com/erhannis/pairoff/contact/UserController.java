@@ -33,7 +33,8 @@ public class UserController {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
 
-            logger.info("raw body in handleUpdateUser = \n" + req.body());
+            // Apparently calling req.body() prevents you from reading queryParams from it
+            //logger.info("raw body in handleUpdateUser = \n" + req.body());
 
             //JsonNode data = objectMapper.readTree(req.body());
 

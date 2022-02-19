@@ -87,7 +87,7 @@ public class App {
         get("/s/matches",                (req, res) -> { return requireLoggedIn(req, res, "010000_matches.hbs"); }, new HandlebarsTemplateEngine());
         get("/s/notifications",          (req, res) -> { return requireLoggedIn(req, res, "011000_notifications.hbs"); }, new HandlebarsTemplateEngine());
 		
-        post("/post/account_details", (req, res) -> {return UserController.handleUpdateUserDetails(req, res); });
+        put("/s/put/account_details", (req, res) -> {return UserController.handleUpdateUserDetails(req, res); });
 		
 //		handle CRUD routes for contacts
 		get("/s/contacts", (req, res) -> {return ContactController.serveDashboard(req, res);}, new HandlebarsTemplateEngine());

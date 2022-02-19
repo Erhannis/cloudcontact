@@ -159,7 +159,7 @@ public class AuthController {
     private static String doSignUp(Request req, Response res) {
 
         res.type(Path.Web.JSON_TYPE); //set our response type
-
+//req.queryParams()
         HashMap<String, Object> response = new HashMap<>();
         String email = Jsoup.parse(req.queryParams("email")).text();
         String salt = Jsoup.parse(req.queryParams("salt")).text();

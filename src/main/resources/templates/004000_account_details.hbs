@@ -82,20 +82,20 @@
                 event.preventDefault();
 
                 $.ajax({
-                    type: "post",
-                    url: "/post/account_details",
+                    type: "put",
+                    url: "/s/put/account_details",
                     data: {userName: $("#userName").val(),
-                           userDOB: $("#userDOB").val,
-                           userPhone: $("#userPhone").val,
-                           userGender: $("#userGender").val,
-                           userAttractionCismale: $("#userAttractionCismale").val,
-                           userAttractionCisfemale: $("#userAttractionCisfemale").val,
-                           userAttractionTransmale: $("#userAttractionTransmale").val,
-                           userAttractionTransfemale: $("#userAttractionTransfemale").val,
-                           userAttractionOther: $("#userAttractionOther").val,
-                           userAcceptableMinAge: $("#userAcceptableMinAge").val,
-                           userAcceptableMaxAge: $("#userAcceptableMaxAge").val,
-                           userMatchInfo: $("#userMatchInfo").val
+                           userDOB: $("#userDOB").val(),
+                           userPhone: $("#userPhone").val(),
+                           userGender: $("#userGender").val(),
+                           userAttractionCismale: $("#userAttractionCismale").val(),
+                           userAttractionCisfemale: $("#userAttractionCisfemale").val(),
+                           userAttractionTransmale: $("#userAttractionTransmale").val(),
+                           userAttractionTransfemale: $("#userAttractionTransfemale").val(),
+                           userAttractionOther: $("#userAttractionOther").val(),
+                           userAcceptableMinAge: $("#userAcceptableMinAge").val(),
+                           userAcceptableMaxAge: $("#userAcceptableMaxAge").val(),
+                           userMatchInfo: $("#userMatchInfo").val()
                     },
                     success: function () {
                         $("#alertBoxModal").css({"background-color": "rgba(16,71,116,0.9)"});
