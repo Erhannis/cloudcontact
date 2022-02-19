@@ -5,6 +5,7 @@
  */
 package com.erhannis.pairoff.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,6 +38,8 @@ public class User {
     
     @Id
     public ObjectId id;
+
+    //TODO Version fields other than matchInfo?
     
     @Indexed(options = @IndexOptions(unique = true))
     public String email = ""; // Required //SENSITIVE
@@ -46,7 +49,7 @@ public class User {
     
     public boolean acceptedTOS = false; // Required
     public String name = ""; // Required //SENSITIVE //TODO This is sensitive info - do we need it?
-    public Date dob = new Date(); // Required //SENSITIVE
+    public LocalDate dob = null; // Required //SENSITIVE
     //TODO Unique?
     public String phone; // Optional //SENSITIVE
     public Map<Date, String> matchInfo = new HashMap<>(); // Optional, technically //SENSITIVE
@@ -88,6 +91,13 @@ public class User {
         }
         return null;
     }
+    
+    public String getCurrentMatchText(boolean substituteDefault) {
+        return matchInfo.entrySet().stream().sorted((o1, o2) -> {
+            return o1.getKey().compareTo(o2.getKey());
+        }).findFirst().map(e -> e.getValue()).orElse(substituteDefault ? email : null);
+    }
+    
     
     @Override
     public String toString() {

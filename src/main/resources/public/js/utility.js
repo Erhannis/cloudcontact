@@ -88,7 +88,7 @@ function saveNew(data) {
     console.log("Save New data = \n" + JSON.stringify(data));
      $.ajax({
          type: "post",
-         url: "/s/post/contact/",
+         url: "/s/post/contact",
          data: JSON.stringify(data),
          contentType: "application/json",
          success: function() {

@@ -139,7 +139,7 @@ public class AuthController {
                 response.put("M2", M2);
                 response.put("code", "200");
                 response.put("status", "success");
-                response.put("target", "/contacts/"); //TODO Replace?
+                response.put("target", "/s/contacts"); //TODO Replace?
 
                 String respjson = gson.toJson(response);
                 logger.info("Final response sent By doAuth to client = " + respjson);

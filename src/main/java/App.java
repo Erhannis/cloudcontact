@@ -16,12 +16,15 @@ import static spark.Spark.*;
 import com.erhannis.pairoff.auth.AuthController;
 import com.erhannis.pairoff.auth.ChallengeGen;
 import com.erhannis.pairoff.contact.ContactController;
-import static com.erhannis.pairoff.contact.ContactController.prepareData;
+import com.erhannis.pairoff.contact.UserController;
 import com.erhannis.pairoff.db.DatabaseHelper;
 import com.erhannis.pairoff.index.IndexController;
+import com.erhannis.pairoff.model.User;
 import com.erhannis.pairoff.util.JsonTransformer;
 import com.erhannis.pairoff.util.Path;
 import java.util.HashMap;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.Datastore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
@@ -32,7 +35,7 @@ import spark.Session;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class App {
-    
+   private DatabaseHelper dbHelper = new DatabaseHelper();
    private ChallengeGen gen;
    private SRP6JavascriptServerSessionSHA256 server; 
 
@@ -84,13 +87,13 @@ public class App {
         get("/s/matches",                (req, res) -> { return requireLoggedIn(req, res, "010000_matches.hbs"); }, new HandlebarsTemplateEngine());
         get("/s/notifications",          (req, res) -> { return requireLoggedIn(req, res, "011000_notifications.hbs"); }, new HandlebarsTemplateEngine());
 		
+        post("/post/account_details", (req, res) -> {return UserController.handleUpdateUserDetails(req, res); });
 		
 //		handle CRUD routes for contacts
 		get("/s/contacts", (req, res) -> {return ContactController.serveDashboard(req, res);}, new HandlebarsTemplateEngine());
 		delete("/s/delete/contact/:id", (req, res)-> {return ContactController.handleDeleteContact(req, res);}, new JsonTransformer());
         put("/s/put/contact/:id", "application/json", (req, res) -> {return ContactController.handleUpdateContact(req, res); });
         post("/s/post/contact", "application/json", (req, res) -> { return ContactController.handleNewContact(req, res);} );
-                
     }
 
     public ModelAndView requireLoggedIn(Request req, Response res, String intendedView) {
@@ -113,6 +116,25 @@ public class App {
             res.redirect("/login");
             return null;
         }
+    }
+    
+    //TODO Include selectively?
+    public HashMap<String, Object> prepareData(String userId) {
+        Datastore ds = dbHelper.getDataStore();
+        User u = ds.get(User.class, new ObjectId(userId));
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("userId", u.id);
+        map.put("userName", u.name);
+        map.put("userDOB", u.dob);
+        map.put("userPhone", u.phone);
+        map.put("userGender", u.gender);
+        map.put("userAttraction", u.attractedTo);
+        map.put("userAcceptableMinAge", u.minAge);
+        map.put("userAcceptableMaxAge", u.maxAge);
+        map.put("userMatchInfo", u.getCurrentMatchText(false));
+
+        return map;
     }
 
 	

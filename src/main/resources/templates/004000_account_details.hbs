@@ -3,7 +3,112 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<div>account_details</div> <!-- //TODO Do -->
-<a href="event_signup">event signup</a>
+    {{> fragments/head.hbs}}
+    
+    <div>account_details</div> <!-- //TODO Do -->
+
+
+    <div class="row" id="detailsDataRow">
+        <form id="accountDetailsForm">
+            <ul id="newDetails">
+                <!-- //TODO Include help/tips/etc. -->
+                <li>
+                    <label for="userName">Name: </label><br/>
+                    <input class="dataInput" type="text" name="userName" id="userName" value="{{userName}}" required /><br/><br/>
+                </li>
+                <li>
+                    <label for="userDOB">Date of birth: </label><br/>
+                    <input class="dataInput" type="date" name="userDOB" id="userDOB" value="{{userDOB}}" required /><br/><br/>
+                </li>
+                <li>
+                    <label for="userPhone">Mobile phone number (optional): </label><br/>
+                    <input class="dataInput" type="text" name="userPhone" id="userPhone" value="{{userPhone}}" /><br/><br/>
+                </li>
+                <li>
+                    <label for="userGender">Gender: </label><br/>
+
+                    <p>:{{userGender}}: //TODO REMOVE</p> <!-- //TODO "Explanation" -->
+                    <!-- //TODO Select on load -->
+                    <input type="radio" id="cismale" name="userGender" value="cismale" />
+                    <label for="cismale">Cismale</label><br>
+                    <input type="radio" id="cisfemale" name="userGender" value="cisfemale" />
+                    <label for="cisfemale">Cisfemale</label><br>
+                    <input type="radio" id="transmale" name="userGender" value="transmale" />
+                    <label for="transmale">Transmale</label><br>
+                    <input type="radio" id="transfemale" name="userGender" value="transfemale" />
+                    <label for="transfemale">Transfemale</label><br>
+                    <input type="radio" id="other" name="userGender" value="other" />
+                    <label for="other">Other</label><br/><br/>
+                </li>
+                <li>
+                    <label for="userAttraction">Comfortable dating: </label><br/>
+                    <p>:{{userAttraction}}: //TODO REMOVE</p>
+                    <!-- //TODO Select on load -->
+                    <input type="checkbox" id="userAttractionCismale" name="userAttractionCismale" value="cismale">
+                    <label for="userAttractionCismale"> Cismale</label><br>
+                    <input type="checkbox" id="userAttractionCisfemale" name="userAttractionCisfemale" value="cisfemale">
+                    <label for="userAttractionCisfemale"> Cisfemale</label><br>
+                    <input type="checkbox" id="userAttractionTransmale" name="userAttractionTransmale" value="transmale">
+                    <label for="userAttractionTransmale"> Transmale</label><br>
+                    <input type="checkbox" id="userAttractionTransfemale" name="userAttractionTransfemale" value="transfemale">
+                    <label for="userAttractionTransfemale"> Transfemale</label><br>
+                    <input type="checkbox" id="userAttractionOther" name="userAttractionOther" value="other">
+                    <label for="userAttractionOther"> Other</label><br/><br/>
+                </li>
+                <li> <!-- //TODO "We recommend updating this once a year or so" -->
+                    <label for="userAcceptableMinAge">Youngest age you're ok with dating (in years): </label><br/>
+                    <input class="dataInput" type="number" id="userAcceptableMinAge" name="userAcceptableMinAge" value="{{userAcceptableMinAge}}" required /><br/><br/>
+                </li>
+                <li>
+                    <label for="userAcceptableMaxAge">Oldest age you're ok with dating (in years): </label><br/>
+                    <input class="dataInput" type="number" id="userAcceptableMaxAge" name="userAcceptableMaxAge" value="{{userAcceptableMaxAge}}" required /><br/><br/>
+                </li>
+                <li>
+                    <label for="userMatchInfo">Match Text: </label><br/>
+                    <textarea id="userMatchInfo" name="userMatchInfo" placeholder="contact information shown to matches; email is used if no text is given">{{userMatchInfo}}</textarea><br/><br/>
+                </li>
+            </ul>
+            <input type="submit" name="updateBt" id="updateBt" value="Update" />
+        </form>
+    </div>
+
+    <a href="event_signup">event signup</a>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#accountDetailsForm").on('submit', function (event) {
+
+                event.preventDefault();
+
+                $.ajax({
+                    type: "post",
+                    url: "/post/account_details",
+                    data: {userName: $("#userName").val(),
+                           userDOB: $("#userDOB").val,
+                           userPhone: $("#userPhone").val,
+                           userGender: $("#userGender").val,
+                           userAttractionCismale: $("#userAttractionCismale").val,
+                           userAttractionCisfemale: $("#userAttractionCisfemale").val,
+                           userAttractionTransmale: $("#userAttractionTransmale").val,
+                           userAttractionTransfemale: $("#userAttractionTransfemale").val,
+                           userAttractionOther: $("#userAttractionOther").val,
+                           userAcceptableMinAge: $("#userAcceptableMinAge").val,
+                           userAcceptableMaxAge: $("#userAcceptableMaxAge").val,
+                           userMatchInfo: $("#userMatchInfo").val
+                    },
+                    success: function () {
+                        $("#alertBoxModal").css({"background-color": "rgba(16,71,116,0.9)"});
+                        $("#logModal").html("<strong>CONTACT UPDATED SUCCESSFULLY!</strong>");
+                    },
+                    error: function () {
+                        $("#alertBoxModal").css({"background-color": "rgba(255,44,30,0.66)"});
+                        $("#logModal").html("<strong>OOPS! UNABLE TO UPDATE CONTACT! PLEASE TRY AGAIN</strong>");
+                    }
+
+                });
+            });
+        });
+    </script>
 
 </html>

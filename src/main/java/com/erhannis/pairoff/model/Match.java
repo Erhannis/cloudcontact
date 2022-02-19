@@ -48,7 +48,7 @@ public class Match {
     
     //TODO Should this return the newest Match Text, or the Match Text in existence at the time the Match was confirmed?
     
-    public String getMatchTextA() {
+    public String getMatchTextOfA() {
         if (!matchConfirmed()) {
             return null; //TODO Empty string?
         }
@@ -57,7 +57,7 @@ public class Match {
         }).findFirst().map(e -> e.getValue()).orElse(userA.email);
     }
 
-    public String getMatchTextB() {
+    public String getMatchTextOfB() {
         if (!matchConfirmed()) {
             return null; //TODO Empty string?
         }
