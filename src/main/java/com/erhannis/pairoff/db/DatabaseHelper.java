@@ -18,14 +18,64 @@ import com.erhannis.pairoff.model.Match;
 import com.erhannis.pairoff.model.Session;
 import com.erhannis.pairoff.model.SpeedDate;
 import com.erhannis.pairoff.util.Path;
+import com.mongodb.BasicDBObject;
+import java.time.LocalDate;
+import java.util.Date;
+import org.mongodb.morphia.converters.SimpleValueConverter;
+import org.mongodb.morphia.converters.TypeConverter;
+import org.mongodb.morphia.mapping.MappedField;
 
 /**
  * @author Seun Matt Date 13 Oct 2016 Year 2016 (c) SMATT Corporation
  */
 public class DatabaseHelper {
-    /**
-     * Constructor cloud contacts
-     */
+    // https://stackoverflow.com/a/34571969/513038
+    public static class LocalDateConverter extends TypeConverter implements SimpleValueConverter {
+
+        public LocalDateConverter() {
+            // TODO: Add other date/time supported classes here
+            // Other java.time classes: LocalDate.class, LocalTime.class
+            // Arrays: LocalDateTime[].class, etc
+            super(LocalDate.class);
+        }
+
+        @Override
+        public Object decode(Class<?> targetClass, Object fromDBObject, MappedField optionalExtraInfo) {
+            if (fromDBObject == null) {
+                return null;
+            }
+
+            if (fromDBObject instanceof BasicDBObject) {
+                BasicDBObject bdo = (BasicDBObject)fromDBObject;
+                int day = bdo.getInt("day");
+                int month = bdo.getInt("month");
+                int year = bdo.getInt("year");
+                return LocalDate.of(year, month, day);
+            }
+
+            throw new IllegalArgumentException(String.format("Cannot decode object of class: %s", fromDBObject.getClass().getName()));
+        }
+
+        @Override
+        public Object encode(Object value, MappedField optionalExtraInfo) {
+            if (value == null) {
+                return null;
+            }
+            
+            if (value instanceof LocalDate) {
+                LocalDate ld = (LocalDate)value;
+                BasicDBObject bdo = new BasicDBObject();
+                bdo.append("year", ld.getYear());
+                bdo.append("month", ld.getMonthValue());
+                bdo.append("day", ld.getDayOfMonth());
+                return bdo;
+            }
+            
+            throw new IllegalArgumentException(String.format("Cannot encode object of class: %s", value.getClass().getName()));
+        }
+    }
+
+    
     private static Morphia morphia = new Morphia();
     private static Datastore datastore = null;
 
@@ -33,6 +83,7 @@ public class DatabaseHelper {
 
     public DatabaseHelper() {
         if (!morphia.isMapped(Contact.class)) {
+            morphia.getMapper().getConverters().addConverter(new LocalDateConverter());
             morphia.map(Contact.class);
             morphia.map(User.class);
             morphia.map(Event.class);

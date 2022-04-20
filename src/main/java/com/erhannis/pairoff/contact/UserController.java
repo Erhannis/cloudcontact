@@ -54,7 +54,7 @@ public class UserController {
             u.name = Strings.nullToEmpty(req.queryParams("userName")).trim();
             u.dob = LocalDate.parse(Strings.nullToEmpty(req.queryParams("userDOB")).trim()); //TODO Check date parsing
             u.phone = Strings.nullToEmpty(req.queryParams("userPhone")).trim();
-            u.gender = User.Gender.valueOf(req.queryParams("userGender"));
+            u.gender = User.Gender.valueOf(req.queryParams("userGender").toUpperCase());
             u.attractedTo.clear();
             if (Boolean.valueOf(req.queryParams("userAttractionCismale"))) {
                 u.attractedTo.add(User.Gender.CISMALE);

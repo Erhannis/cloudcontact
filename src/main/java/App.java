@@ -129,7 +129,17 @@ public class App {
         map.put("userDOB", u.dob);
         map.put("userPhone", u.phone);
         map.put("userGender", u.gender);
+        map.put("userGenderCismaleChecked", u.gender == User.Gender.CISMALE ? "checked" : "");
+        map.put("userGenderCisfemaleChecked", u.gender == User.Gender.CISFEMALE ? "checked" : "");
+        map.put("userGenderTransmaleChecked", u.gender == User.Gender.TRANSMALE ? "checked" : "");
+        map.put("userGenderTransfemaleChecked", u.gender == User.Gender.TRANSFEMALE ? "checked" : "");
+        map.put("userGenderOtherChecked", u.gender == User.Gender.OTHER ? "checked" : "");
         map.put("userAttraction", u.attractedTo);
+        map.put("userAttractionCismaleChecked", u.attractedTo.contains(User.Gender.CISMALE) ? "checked" : "");
+        map.put("userAttractionCisfemaleChecked", u.attractedTo.contains(User.Gender.CISFEMALE) ? "checked" : "");
+        map.put("userAttractionTransmaleChecked", u.attractedTo.contains(User.Gender.TRANSMALE) ? "checked" : "");
+        map.put("userAttractionTransfemaleChecked", u.attractedTo.contains(User.Gender.TRANSFEMALE) ? "checked" : "");
+        map.put("userAttractionOtherChecked", u.attractedTo.contains(User.Gender.OTHER) ? "checked" : "");
         map.put("userAcceptableMinAge", u.minAge);
         map.put("userAcceptableMaxAge", u.maxAge);
         map.put("userMatchInfo", u.getCurrentMatchText(false));
