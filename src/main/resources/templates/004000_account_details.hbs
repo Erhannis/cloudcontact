@@ -70,11 +70,48 @@
             </ul>
             <input type="submit" name="updateBt" id="updateBt" value="Update" />
         </form>
+        <div>
+            <div class="alert fade in" id="alertBoxModal" hidden>
+                <span class="text-center">
+                    <strong id="logModal">ERROR?</strong>
+                </span>
+            </div>
+
+            <div class="progress waitLogo" style="width:25%;height:20px;margin:auto; margin-top: 20px; margin-bottom: 20px;" hidden>
+                <div class="progress-bar progress-bar-striped active" role="progressbar"  aria-valuenow="100" aria-valuemin="100" 
+                     aria-valuemax="100" style="width:100%; background-color:#104774;">
+                    processing . . .
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
     </div>
 
     <a href="event_signup">event signup</a>
 
     <script type="text/javascript">
+        $(".waitLogo, #alertBox").hide();
+
+        $(document).ajaxStart(function () {
+            $("#alertBoxModal").hide();
+            $("#logModal").html("<strong>Error?</strong>");
+            $(".waitLogo").show();
+        });
+
+        $(document).ajaxComplete(function () {
+            setTimeout(
+                    function () {
+                        $(".waitLogo").hide();
+                        $("#alertBoxModal").show();
+                    }, 500);
+        });
+
+        
         $(document).ready(function () {
 
             $("#accountDetailsForm").on('submit', function (event) {
@@ -99,11 +136,11 @@
                     },
                     success: function () {
                         $("#alertBoxModal").css({"background-color": "rgba(16,71,116,0.9)"});
-                        $("#logModal").html("<strong>CONTACT UPDATED SUCCESSFULLY!</strong>");
+                        $("#logModal").html("<strong>Account details updated</strong>");
                     },
                     error: function () {
                         $("#alertBoxModal").css({"background-color": "rgba(255,44,30,0.66)"});
-                        $("#logModal").html("<strong>OOPS! UNABLE TO UPDATE CONTACT! PLEASE TRY AGAIN</strong>");
+                        $("#logModal").html("<strong>An error has occurred</strong>");
                     }
 
                 });
