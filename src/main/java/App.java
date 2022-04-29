@@ -22,6 +22,12 @@ import com.erhannis.pairoff.index.IndexController;
 import com.erhannis.pairoff.model.User;
 import com.erhannis.pairoff.util.JsonTransformer;
 import com.erhannis.pairoff.util.Path;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Objects;
+import com.google.common.base.Strings;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Date;
 import java.util.HashMap;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
@@ -88,6 +94,8 @@ public class App {
         get("/s/notifications",          (req, res) -> { return requireLoggedIn(req, res, "011000_notifications.hbs"); }, new HandlebarsTemplateEngine());
 		
         put("/s/put/account_details", (req, res) -> {return UserController.handleUpdateUserDetails(req, res); });
+        
+        post("/s/post/event_signup", (req, res) -> {return handleEventSignup(req, res); });
 		
 //		handle CRUD routes for contacts
 		get("/s/contacts", (req, res) -> {return ContactController.serveDashboard(req, res);}, new HandlebarsTemplateEngine());
@@ -165,5 +173,52 @@ public class App {
 		new App();
 	}
 
+    //TODO Move somewhere more fitting
+    public String handleEventSignup(Request req, Response res) {
+        //DO Require proper page order
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            // Apparently calling req.body() prevents you from reading queryParams from it
+            //logger.info("raw body in handleUpdateUser = \n" + req.body());
+
+            //JsonNode data = objectMapper.readTree(req.body());
+
+            //TODO The path actually includes a user id....
+//            String userId = req.params("id");
+//            String thisUserId = req.session(false).attribute(Path.Web.ATTR_USER_ID);
+//            if (!Objects.equal(userId, thisUserId)) {
+//                logger.info("User not authorized to update different user's info; failing");
+//                res.status(403);
+//                return res.status();
+//            }
+            String userId = req.session(false).attribute(Path.Web.ATTR_USER_ID);
+
+            String eventCode = Strings.nullToEmpty(req.queryParams("eventCode")).trim();
+            
+//            Datastore ds = dbHelper.getDataStore();
+//            User u = ds.get(User.class, new ObjectId(userId));
+//            ds.save(u);
+
+            //DO Actually register for event
+
+            if (eventCode.contains("code")) {
+                logger.info("registered for event");
+                res.status(200);
+                return ("Joe's " + eventCode + " Convention");
+            } else {
+                logger.info("incorrect event code");
+                res.status(422);
+                return "incorrect event code";
+            }
+        } catch (Exception e) {
+            //TODO Just throw the exception?
+            logger.info("error parsing data from handleEventSignup \n");
+            e.printStackTrace();
+            res.status(500);
+        }
+
+        return res.body();
+    }
 	
 }

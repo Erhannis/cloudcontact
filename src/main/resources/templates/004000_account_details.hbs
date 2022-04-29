@@ -2,85 +2,87 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-    {{> fragments/head.hbs}}
+    <body>
     
-    <div>account_details</div> <!-- //TODO Do -->
+        {{> fragments/head.hbs}}
+
+        <div>account_details</div> <!-- //TODO Do -->
 
 
-    <div class="row" id="detailsDataRow">
-        <form id="accountDetailsForm">
-            <ul id="newDetails">
-                <!-- //TODO Include help/tips/etc. -->
-                <li>
-                    <label for="userName">Name: </label><br/>
-                    <input class="dataInput" type="text" name="userName" id="userName" value="{{userName}}" required /><br/><br/>
-                </li>
-                <li>
-                    <label for="userDOB">Date of birth: </label><br/>
-                    <input class="dataInput" type="date" name="userDOB" id="userDOB" value="{{userDOB}}" required /><br/><br/>
-                </li>
-                <li>
-                    <label for="userPhone">Mobile phone number (optional): </label><br/>
-                    <input class="dataInput" type="text" name="userPhone" id="userPhone" value="{{userPhone}}" /><br/><br/>
-                </li>
-                <li>
-                    <label for="userGender">Gender: </label><br/>
+        <div class="row" id="detailsDataRow">
+            <form id="accountDetailsForm">
+                <ul id="newDetails">
+                    <!-- //TODO Include help/tips/etc. -->
+                    <li>
+                        <label for="userName">Name: </label><br/>
+                        <input class="dataInput" type="text" name="userName" id="userName" value="{{userName}}" required /><br/><br/>
+                    </li>
+                    <li>
+                        <label for="userDOB">Date of birth: </label><br/>
+                        <input class="dataInput" type="date" name="userDOB" id="userDOB" value="{{userDOB}}" required /><br/><br/>
+                    </li>
+                    <li>
+                        <label for="userPhone">Mobile phone number (optional): </label><br/>
+                        <input class="dataInput" type="text" name="userPhone" id="userPhone" value="{{userPhone}}" /><br/><br/>
+                    </li>
+                    <li>
+                        <label for="userGender">Gender: </label><br/>
 
-                    <p style="display: none;">:{{userGender}}: //TODO REMOVE</p> <!-- //TODO "Explanation" -->
-                    <!-- //TODO Select on load -->
-                    <input type="radio" id="cismale" name="userGender" value="cismale" {{userGenderCismaleChecked}} />
-                    <label for="cismale">Cismale</label><br>
-                    <input type="radio" id="cisfemale" name="userGender" value="cisfemale" {{userGenderCisfemaleChecked}} />
-                    <label for="cisfemale">Cisfemale</label><br>
-                    <input type="radio" id="transmale" name="userGender" value="transmale" {{userGenderTransmaleChecked}} />
-                    <label for="transmale">Transmale</label><br>
-                    <input type="radio" id="transfemale" name="userGender" value="transfemale" {{userGenderTransfemaleChecked}} />
-                    <label for="transfemale">Transfemale</label><br>
-                    <input type="radio" id="other" name="userGender" value="other" {{userGenderOtherChecked}} />
-                    <label for="other">Other</label><br/><br/>
-                </li>
-                <li>
-                    <label for="userAttraction">Comfortable dating: </label><br/>
-                    <p style="display: none;">:{{userAttraction}}: //TODO REMOVE</p>
-                    <!-- //TODO Select on load -->
-                    <input type="checkbox" id="userAttractionCismale" name="userAttractionCismale" value="cismale" {{userAttractionCismaleChecked}} />
-                    <label for="userAttractionCismale"> Cismale</label><br>
-                    <input type="checkbox" id="userAttractionCisfemale" name="userAttractionCisfemale" value="cisfemale" {{userAttractionCisfemaleChecked}} />
-                    <label for="userAttractionCisfemale"> Cisfemale</label><br>
-                    <input type="checkbox" id="userAttractionTransmale" name="userAttractionTransmale" value="transmale" {{userAttractionTransmaleChecked}} />
-                    <label for="userAttractionTransmale"> Transmale</label><br>
-                    <input type="checkbox" id="userAttractionTransfemale" name="userAttractionTransfemale" value="transfemale" {{userAttractionTransfemaleChecked}} />
-                    <label for="userAttractionTransfemale"> Transfemale</label><br>
-                    <input type="checkbox" id="userAttractionOther" name="userAttractionOther" value="other" {{userAttractionOtherChecked}} />
-                    <label for="userAttractionOther"> Other</label><br/><br/>
-                </li>
-                <li> <!-- //TODO "We recommend updating this once a year or so" -->
-                    <label for="userAcceptableMinAge">Youngest age you're ok with dating (in years): </label><br/>
-                    <input class="dataInput" type="number" id="userAcceptableMinAge" name="userAcceptableMinAge" value="{{userAcceptableMinAge}}" min="18" required /><br/><br/>
-                </li>
-                <li>
-                    <label for="userAcceptableMaxAge">Oldest age you're ok with dating (in years): </label><br/>
-                    <input class="dataInput" type="number" id="userAcceptableMaxAge" name="userAcceptableMaxAge" value="{{userAcceptableMaxAge}}" min="18" required /><br/><br/>
-                </li>
-                <li>
-                    <label for="userMatchInfo">Match Text: </label><br/>
-                    <textarea id="userMatchInfo" name="userMatchInfo" placeholder="contact information shown to matches; email is used if no text is given">{{userMatchInfo}}</textarea><br/><br/>
-                </li>
-            </ul>
-            <input type="submit" name="updateBt" id="updateBt" value="Update" />
-        </form>
-        {{> fragments/result_modal.hbs}}
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-    </div>
+                        <p style="display: none;">:{{userGender}}: //TODO REMOVE</p> <!-- //TODO "Explanation" -->
+                        <!-- //TODO Select on load -->
+                        <input type="radio" id="cismale" name="userGender" value="cismale" {{userGenderCismaleChecked}} />
+                        <label for="cismale">Cismale</label><br>
+                        <input type="radio" id="cisfemale" name="userGender" value="cisfemale" {{userGenderCisfemaleChecked}} />
+                        <label for="cisfemale">Cisfemale</label><br>
+                        <input type="radio" id="transmale" name="userGender" value="transmale" {{userGenderTransmaleChecked}} />
+                        <label for="transmale">Transmale</label><br>
+                        <input type="radio" id="transfemale" name="userGender" value="transfemale" {{userGenderTransfemaleChecked}} />
+                        <label for="transfemale">Transfemale</label><br>
+                        <input type="radio" id="other" name="userGender" value="other" {{userGenderOtherChecked}} />
+                        <label for="other">Other</label><br/><br/>
+                    </li>
+                    <li>
+                        <label for="userAttraction">Comfortable dating: </label><br/>
+                        <p style="display: none;">:{{userAttraction}}: //TODO REMOVE</p>
+                        <!-- //TODO Select on load -->
+                        <input type="checkbox" id="userAttractionCismale" name="userAttractionCismale" value="cismale" {{userAttractionCismaleChecked}} />
+                        <label for="userAttractionCismale"> Cismale</label><br>
+                        <input type="checkbox" id="userAttractionCisfemale" name="userAttractionCisfemale" value="cisfemale" {{userAttractionCisfemaleChecked}} />
+                        <label for="userAttractionCisfemale"> Cisfemale</label><br>
+                        <input type="checkbox" id="userAttractionTransmale" name="userAttractionTransmale" value="transmale" {{userAttractionTransmaleChecked}} />
+                        <label for="userAttractionTransmale"> Transmale</label><br>
+                        <input type="checkbox" id="userAttractionTransfemale" name="userAttractionTransfemale" value="transfemale" {{userAttractionTransfemaleChecked}} />
+                        <label for="userAttractionTransfemale"> Transfemale</label><br>
+                        <input type="checkbox" id="userAttractionOther" name="userAttractionOther" value="other" {{userAttractionOtherChecked}} />
+                        <label for="userAttractionOther"> Other</label><br/><br/>
+                    </li>
+                    <li> <!-- //TODO "We recommend updating this once a year or so" -->
+                        <label for="userAcceptableMinAge">Youngest age you're ok with dating (in years): </label><br/>
+                        <input class="dataInput" type="number" id="userAcceptableMinAge" name="userAcceptableMinAge" value="{{userAcceptableMinAge}}" min="18" required /><br/><br/>
+                    </li>
+                    <li>
+                        <label for="userAcceptableMaxAge">Oldest age you're ok with dating (in years): </label><br/>
+                        <input class="dataInput" type="number" id="userAcceptableMaxAge" name="userAcceptableMaxAge" value="{{userAcceptableMaxAge}}" min="18" required /><br/><br/>
+                    </li>
+                    <li>
+                        <label for="userMatchInfo">Match Text: </label><br/>
+                        <textarea id="userMatchInfo" name="userMatchInfo" placeholder="contact information shown to matches; email is used if no text is given">{{userMatchInfo}}</textarea><br/><br/>
+                    </li>
+                </ul>
+                <input type="submit" name="updateBt" id="updateBt" value="Update" />
+            </form>
+            {{> fragments/result_modal.hbs}}
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+        </div>
 
-    <a href="event_signup">event signup</a>
-
+        <a href="event_signup">event signup</a>
+    </body>
+    
     <script type="text/javascript">
         $(document).ready(function () {
 
