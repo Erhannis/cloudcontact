@@ -36,7 +36,6 @@
                     url: "/s/post/event_signup",
                     data: {eventCode: $("#eventCode").val()},
                     success: function (response) {
-                        //TODO This returns "200" for redirect to login...incorrect
                         $("#alertBoxModal").css({"background-color": "rgba(16,71,116,0.9)"});
                         $("#logModal").html("<strong>Successfully joined event: <span id='eventName'></span></strong>");
                         $("#eventName")[0].textContent = response;

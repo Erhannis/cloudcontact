@@ -64,9 +64,15 @@ public class App {
                             session.attribute(Path.Web.AUTH_STATUS) : false;
             logger.info("auth status = " + auth);
             if(!auth) {
-                logger.warn("Secured Area! Login is REQUIRED");
-                res.redirect("/login");
-               halt(401);
+                if ("GET".equalsIgnoreCase(req.requestMethod())) {
+                    logger.warn("Secured Area! Login is REQUIRED");
+                    res.redirect("/login");
+                    halt(401);
+                } else {
+                    logger.warn("Secured Area! Login is REQUIRED");
+                    res.status(401);
+                    halt(401);
+                }
             }
         });
                 
