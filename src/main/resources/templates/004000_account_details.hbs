@@ -70,20 +70,7 @@
             </ul>
             <input type="submit" name="updateBt" id="updateBt" value="Update" />
         </form>
-        <div>
-            <div class="alert fade in" id="alertBoxModal" hidden>
-                <span class="text-center">
-                    <strong id="logModal">ERROR?</strong>
-                </span>
-            </div>
-
-            <div class="progress waitLogo" style="width:25%;height:20px;margin:auto; margin-top: 20px; margin-bottom: 20px;" hidden>
-                <div class="progress-bar progress-bar-striped active" role="progressbar"  aria-valuenow="100" aria-valuemin="100" 
-                     aria-valuemax="100" style="width:100%; background-color:#104774;">
-                    processing . . .
-                </div>
-            </div>
-        </div>
+        {{> fragments/result_modal.hbs}}
         <br/>
         <br/>
         <br/>
@@ -95,23 +82,6 @@
     <a href="event_signup">event signup</a>
 
     <script type="text/javascript">
-        $(".waitLogo, #alertBox").hide();
-
-        $(document).ajaxStart(function () {
-            $("#alertBoxModal").hide();
-            $("#logModal").html("<strong>Error?</strong>");
-            $(".waitLogo").show();
-        });
-
-        $(document).ajaxComplete(function () {
-            setTimeout(
-                    function () {
-                        $(".waitLogo").hide();
-                        $("#alertBoxModal").show();
-                    }, 500);
-        });
-
-        
         $(document).ready(function () {
 
             $("#accountDetailsForm").on('submit', function (event) {
