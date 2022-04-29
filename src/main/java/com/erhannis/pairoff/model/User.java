@@ -94,7 +94,7 @@ public class User {
     
     public String getCurrentMatchText(boolean substituteDefault) {
         return matchInfo.entrySet().stream().sorted((o1, o2) -> {
-            return o1.getKey().compareTo(o2.getKey());
+            return -o1.getKey().compareTo(o2.getKey());
         }).findFirst().map(e -> e.getValue()).orElse(substituteDefault ? email : null);
     }
     

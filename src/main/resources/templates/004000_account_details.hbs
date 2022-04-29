@@ -57,11 +57,11 @@
                 </li>
                 <li> <!-- //TODO "We recommend updating this once a year or so" -->
                     <label for="userAcceptableMinAge">Youngest age you're ok with dating (in years): </label><br/>
-                    <input class="dataInput" type="number" id="userAcceptableMinAge" name="userAcceptableMinAge" value="{{userAcceptableMinAge}}" required /><br/><br/>
+                    <input class="dataInput" type="number" id="userAcceptableMinAge" name="userAcceptableMinAge" value="{{userAcceptableMinAge}}" min="18" required /><br/><br/>
                 </li>
                 <li>
                     <label for="userAcceptableMaxAge">Oldest age you're ok with dating (in years): </label><br/>
-                    <input class="dataInput" type="number" id="userAcceptableMaxAge" name="userAcceptableMaxAge" value="{{userAcceptableMaxAge}}" required /><br/><br/>
+                    <input class="dataInput" type="number" id="userAcceptableMaxAge" name="userAcceptableMaxAge" value="{{userAcceptableMaxAge}}" min="18" required /><br/><br/>
                 </li>
                 <li>
                     <label for="userMatchInfo">Match Text: </label><br/>
