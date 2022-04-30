@@ -16,6 +16,7 @@ import static spark.Spark.*;
 import com.erhannis.pairoff.auth.AuthController;
 import com.erhannis.pairoff.auth.ChallengeGen;
 import com.erhannis.pairoff.contact.ContactController;
+import com.erhannis.pairoff.contact.LocationController;
 import com.erhannis.pairoff.contact.UserController;
 import com.erhannis.pairoff.db.DatabaseHelper;
 import com.erhannis.pairoff.index.IndexController;
@@ -75,7 +76,40 @@ public class App {
                 }
             }
         });
-                
+
+        //ensure user is an admin to have access to admin routes
+        before("/a/*", (req, res) -> {
+            logger.warn("BEFORE TRIGGERED " + req.url());
+            Session session = req.session(true);
+            boolean auth = session.attribute(Path.Web.AUTH_STATUS) != null  ? 
+                            session.attribute(Path.Web.AUTH_STATUS) : false;
+            logger.info("auth status = " + auth);
+            if(!auth) {
+                // Not auth
+                if ("GET".equalsIgnoreCase(req.requestMethod())) {
+                    logger.warn("Logged-in area denied; redirecting");
+                    res.redirect("/login");
+                    halt(401);
+                } else {
+                    logger.warn("Logged-in area denied");
+                    res.status(401);
+                    halt(401);
+                }
+            } else {
+                // Auth.  Is admin?
+                String userId = session.attribute(Path.Web.ATTR_USER_ID).toString();
+                Datastore ds = dbHelper.getDataStore();
+                User u = ds.get(User.class, new ObjectId(userId));
+                if (u.admin) {
+                    
+                } else {
+                    logger.warn("Admin area denied");
+                    res.status(401);
+                    halt(401);
+                }
+            }
+        });
+        
 //		Handle homepage routes
 		get("/", (req, res) -> IndexController.serveHomePage(req, res), new HandlebarsTemplateEngine());
 
@@ -83,9 +117,9 @@ public class App {
         //TODO Probably (almost) ALL the pages want User if it's available - for sidebar
 		get("/login",                    (req, res) -> { return AuthController.serveLoginPage(req, res); }, new HandlebarsTemplateEngine());
 		post("/post/login",              (req, res) -> { return AuthController.handleLogin(req, res);} );
-        post("/post/auth",               (req, res) -> {return AuthController.handleAuth(req, res); } );
+        post("/post/auth",               (req, res) -> { return AuthController.handleAuth(req, res); } );
         get("/account_signup",           (req, res) -> { return AuthController.serveSignUpPage(req, res); }, new HandlebarsTemplateEngine());
-		post("/post/account_signup",     (req, res) -> {return AuthController.handleSignUp(req, res);});
+		post("/post/account_signup",     (req, res) -> { return AuthController.handleSignUp(req, res);});
         get("/logout",                   (req, res) -> { return AuthController.handleSignOut(req, res); });
         get("/help",                     (req, res) -> { return new ModelAndView(null, "012000_help.hbs"); }, new HandlebarsTemplateEngine());
         get("/s/account_signup_confirm", (req, res) -> { return requireLoggedIn(req, res, "002000_account_signup_confirm.hbs"); }, new HandlebarsTemplateEngine());
@@ -98,7 +132,7 @@ public class App {
         get("/s/in_session",             (req, res) -> { return requireLoggedIn(req, res, "009000_in_session.hbs"); }, new HandlebarsTemplateEngine());
         get("/s/matches",                (req, res) -> { return requireLoggedIn(req, res, "010000_matches.hbs"); }, new HandlebarsTemplateEngine());
         get("/s/notifications",          (req, res) -> { return requireLoggedIn(req, res, "011000_notifications.hbs"); }, new HandlebarsTemplateEngine());
-		
+
         put("/s/put/account_details", (req, res) -> {return UserController.handleUpdateUserDetails(req, res); });
         
         post("/s/post/event_signup", (req, res) -> {return handleEventSignup(req, res); });
@@ -106,8 +140,18 @@ public class App {
 //		handle CRUD routes for contacts
 		get("/s/contacts", (req, res) -> {return ContactController.serveDashboard(req, res);}, new HandlebarsTemplateEngine());
 		delete("/s/delete/contact/:id", (req, res)-> {return ContactController.handleDeleteContact(req, res);}, new JsonTransformer());
-        put("/s/put/contact/:id", "application/json", (req, res) -> {return ContactController.handleUpdateContact(req, res); });
-        post("/s/post/contact", "application/json", (req, res) -> { return ContactController.handleNewContact(req, res);} );
+        put("/s/put/contact/:id", "application/json", (req, res) -> {return ContactController.handleUpdateContact(req, res);});
+        post("/s/post/contact", "application/json", (req, res) -> {return ContactController.handleNewContact(req, res);});
+        
+        
+        
+        // Admin
+        
+        get("/a/admin",                  (req, res) -> { return requireLoggedIn(req, res, "a_001000_admin.hbs"); }, new HandlebarsTemplateEngine());
+        get("/a/locations",              (req, res) -> { return LocationController.serveIndex(req, res, "a_002000_locations.hbs"); }, new HandlebarsTemplateEngine());
+
+        post("/a/post/create_location",  (req, res) -> { return LocationController.handleNewLocation(req, res); });
+        put("/a/put/update_location",    (req, res) -> { return LocationController.handleUpdateLocation(req, res); });
     }
 
     public ModelAndView requireLoggedIn(Request req, Response res, String intendedView) {

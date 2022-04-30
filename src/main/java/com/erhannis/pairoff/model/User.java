@@ -6,9 +6,11 @@
 package com.erhannis.pairoff.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.bson.types.ObjectId;
@@ -47,6 +49,8 @@ public class User {
     public String verifier = "";
     public String token = "";
     
+    public boolean admin = false;
+    
     public boolean acceptedTOS = false; // Required
     public String name = ""; // Required //SENSITIVE //TODO This is sensitive info - do we need it?
     public LocalDate dob = null; // Required //SENSITIVE
@@ -58,6 +62,9 @@ public class User {
     //TODO Once a year, suggest update
     public Integer minAge = null; // Optional // In years
     public Integer maxAge = null; // Optional // In years
+    
+    @Reference
+    public Set<Event> registeredEvents = new HashSet<Event>();
     
     public User() {
         

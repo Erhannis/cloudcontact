@@ -7,6 +7,14 @@ TODO
     date
   make logic
   hook it together
+  admin UI
+    create:
+      Location
+      Event
+      Session? (maybe automatic)
+    get Event code(s)
+    POSSIBLY allow administrative corrections
+    flags, bans, etc.
 
 
 security/legal concerns

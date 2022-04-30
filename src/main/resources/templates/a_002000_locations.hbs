@@ -1,0 +1,92 @@
+<!-- locations -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <body>
+        {{> fragments/head.hbs}}
+        
+        <div>locations</div>
+
+        <div>
+            <ul>
+              {{#each locations}}
+                <li onclick='fillUpdate("{{id}}", "{{location}}")'>{{this}}</li> <!-- //TODO id/location doesn't swap in -->
+              {{/each}}
+            </ul>
+        </div>
+        
+        <form id="updateLocationForm" style="border: 1px solid black">
+            <label for="u_id">ID</label><br/>
+            <input class="dataInput" type="text" name="u_id" id="u_id" required /><br/><br/>
+            <label for="u_location">Location:</label><br/>
+            <input class="dataInput" type="text" name="u_location" id="u_location" required /><br/><br/>
+            <input type="submit" name="updateBt" id="updateBt" value="Update" />
+        </form>
+        <form id="createLocationForm" style="border: 1px solid black">
+            <label for="c_location">Location:</label><br/>
+            <input class="dataInput" type="text" name="c_location" id="c_location" required /><br/><br/>
+            <input type="submit" name="createBt" id="createBt" value="Create" />
+        </form>
+        {{> fragments/result_modal.hbs}}
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </body>
+
+    <script type="text/javascript">
+        function fillUpdate(id, location) {
+            //TODO Uncomment when id/location is fixed
+            //$("#u_id").val(id);
+            //$("#u_location").val(location);
+        }
+        
+        $(document).ready(function () {
+            $("#updateLocationForm").on('submit', function (event) {
+                event.preventDefault();
+
+                $.ajax({
+                    type: "put",
+                    url: "/a/put/update_location",
+                    data: {
+                        id: $("#u_id").val(),
+                        location: $("#u_location").val()
+                    },
+                    success: function (response) {
+                        $("#alertBoxModal").css({"background-color": "rgba(16,71,116,0.9)"});
+                        $("#logModal").html("<strong>Successfully updated location</strong>");
+                        $("#u_id").val("");
+                        $("#u_location").val("");
+                    },
+                    error: function () {
+                        $("#alertBoxModal").css({"background-color": "rgba(255,44,30,0.66)"});
+                        $("#logModal").html("<strong>An error has occurred</strong>");
+                    }
+                });
+            });
+            
+            $("#createLocationForm").on('submit', function (event) {
+                event.preventDefault();
+
+                $.ajax({
+                    type: "post",
+                    url: "/a/post/create_location",
+                    data: {location: $("#c_location").val()},
+                    success: function (response) {
+                        $("#alertBoxModal").css({"background-color": "rgba(16,71,116,0.9)"});
+                        $("#logModal").html("<strong>Successfully created location</strong>");
+                        $("#c_location").val("");
+                    },
+                    error: function () {
+                        $("#alertBoxModal").css({"background-color": "rgba(255,44,30,0.66)"});
+                        $("#logModal").html("<strong>An error has occurred</strong>");
+                    }
+                });
+            });
+        });
+    </script>
+    
+</html>
