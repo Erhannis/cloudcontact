@@ -1,0 +1,140 @@
+<!-- events -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <body>
+        {{> fragments/head.hbs}}
+        
+        <div>events</div>
+
+        <div>
+            <ul>
+              {{#each events}}
+                <li onclick=''>{{this}}</li>
+              {{/each}}
+            </ul>
+        </div>
+        
+        <form id="updateEventForm" style="border: 1px solid black">
+            <ul>
+                <li>
+                    <label for="u_id">ID:</label><br/>
+                    <input class="dataInput" type="text" name="u_id" id="u_id" required /><br/><br/>
+                </li>
+                <li>
+                    <label for="u_name">Name:</label><br/>
+                    <input class="dataInput" type="text" name="u_name" id="u_name" required /><br/><br/>
+                </li>
+                <li>
+                    <label for="u_starttime">Start time:</label><br/>
+                    <input class="dataInput" type="number" id="u_starttime" name="u_starttime" /><br/><br/>
+                </li>
+                <li>
+                    <label for="u_duration">Duration (ms):</label><br/>
+                    <input class="dataInput" type="number" id="u_duration" name="u_duration" /><br/><br/>
+                </li>
+                <li>
+                    <label for="u_location_id">Location ID:</label><br/>
+                    <input class="dataInput" type="text" name="u_location_id" id="u_location_id" required /><br/><br/>
+                </li>
+                <input type="submit" name="updateBt" id="updateBt" value="Update" />
+            </ul>
+        </form>
+        <form id="createEventForm" style="border: 1px solid black">
+            <ul>
+                <li>
+                    <label for="c_name">Name:</label><br/>
+                    <input class="dataInput" type="text" name="c_name" id="c_name" required /><br/><br/>
+                </li>
+                <li>
+                    <label for="c_starttime">Start time:</label><br/>
+                    <input class="dataInput" type="number" id="c_starttime" name="c_starttime" /><br/><br/>
+                </li>
+                <li>
+                    <label for="c_duration">Duration (ms):</label><br/>
+                    <input class="dataInput" type="number" id="c_duration" name="c_duration" /><br/><br/>
+                </li>
+                <li>
+                    <label for="c_location_id">Location ID:</label><br/>
+                    <input class="dataInput" type="text" name="c_location_id" id="c_location_id" required /><br/><br/>
+                </li>
+                <input type="submit" name="createBt" id="createBt" value="Create" />
+            </ul>
+        </form>
+        {{> fragments/result_modal.hbs}}
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </body>
+
+    <script type="text/javascript">
+        function fillUpdate(id, location) {
+            //TODO Uncomment when id/location is fixed
+            //$("#u_id").val(id);
+            //$("#u_location").val(location);
+        }
+        
+        $(document).ready(function () {
+            $("#updateEventForm").on('submit', function (event) {
+                event.preventDefault();
+
+                $.ajax({
+                    type: "put",
+                    url: "/a/put/update_event",
+                    data: {
+                        id: $("#u_id").val(),
+                        name: $("#u_name").val(),
+                        starttime: $("#u_starttime").val(),
+                        duration: $("#u_duration").val(),
+                        locationId: $("#u_location_id").val()
+                    },
+                    success: function (response) {
+                        $("#alertBoxModal").css({"background-color": "rgba(16,71,116,0.9)"});
+                        $("#logModal").html("<strong>Successfully updated event</strong>");
+                        $("#u_id").val("");
+                        $("#u_name").val("");
+                        $("#u_starttime").val("");
+                        $("#u_duration").val("");
+                        $("#u_location_id").val("");
+                    },
+                    error: function () {
+                        $("#alertBoxModal").css({"background-color": "rgba(255,44,30,0.66)"});
+                        $("#logModal").html("<strong>An error has occurred</strong>");
+                    }
+                });
+            });
+            
+            $("#createEventForm").on('submit', function (event) {
+                event.preventDefault();
+
+                $.ajax({
+                    type: "post",
+                    url: "/a/post/create_event",
+                    data: {
+                        name: $("#c_name").val(),
+                        starttime: $("#c_starttime").val(),
+                        duration: $("#c_duration").val(),
+                        locationId: $("#c_location_id").val()
+                    },
+                    success: function (response) {
+                        $("#alertBoxModal").css({"background-color": "rgba(16,71,116,0.9)"});
+                        $("#logModal").html("<strong>Successfully created event</strong>");
+                        $("#c_name").val("");
+                        $("#c_starttime").val("");
+                        $("#c_duration").val("");
+                        $("#c_location_id").val("");
+                    },
+                    error: function () {
+                        $("#alertBoxModal").css({"background-color": "rgba(255,44,30,0.66)"});
+                        $("#logModal").html("<strong>An error has occurred</strong>");
+                    }
+                });
+            });
+        });
+    </script>
+    
+</html>

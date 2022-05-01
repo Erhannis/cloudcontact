@@ -16,6 +16,7 @@ import static spark.Spark.*;
 import com.erhannis.pairoff.auth.AuthController;
 import com.erhannis.pairoff.auth.ChallengeGen;
 import com.erhannis.pairoff.contact.ContactController;
+import com.erhannis.pairoff.contact.EventController;
 import com.erhannis.pairoff.contact.LocationController;
 import com.erhannis.pairoff.contact.UserController;
 import com.erhannis.pairoff.db.DatabaseHelper;
@@ -149,9 +150,13 @@ public class App {
         
         get("/a/admin",                  (req, res) -> { return requireLoggedIn(req, res, "a_001000_admin.hbs"); }, new HandlebarsTemplateEngine());
         get("/a/locations",              (req, res) -> { return LocationController.serveIndex(req, res, "a_002000_locations.hbs"); }, new HandlebarsTemplateEngine());
+        get("/a/events",                 (req, res) -> { return EventController.serveIndex(req, res, "a_003000_events.hbs"); }, new HandlebarsTemplateEngine());
 
         post("/a/post/create_location",  (req, res) -> { return LocationController.handleNewLocation(req, res); });
         put("/a/put/update_location",    (req, res) -> { return LocationController.handleUpdateLocation(req, res); });
+
+        post("/a/post/create_event",     (req, res) -> { return EventController.handleNewEvent(req, res); });
+        put("/a/put/update_event",       (req, res) -> { return EventController.handleUpdateEvent(req, res); });
     }
 
     public ModelAndView requireLoggedIn(Request req, Response res, String intendedView) {

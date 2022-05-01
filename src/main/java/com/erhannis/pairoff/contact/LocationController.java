@@ -38,11 +38,11 @@ public class LocationController {
     }
     
     public static int handleNewLocation(Request req, Response res) {
-        String location = Strings.nullToEmpty(req.queryParams("location")).trim();
-
         try {
-            Location l = new Location(location);
+            String location = Strings.nullToEmpty(req.queryParams("location")).trim();
+        
             Datastore ds = dbHelper.getDataStore();
+            Location l = new Location(location);
             ds.save(l);
             res.status(200);
         } catch (Exception e) {

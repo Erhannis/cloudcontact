@@ -17,7 +17,8 @@ public class Event {
     @Id
     private ObjectId id;
     
-    public Date starttime = null;
+    public String name;
+    public long starttime = 0;
     public long duration = 0;
     @Reference
     public Location location;
@@ -29,7 +30,8 @@ public class Event {
         
     }
     
-    public Event(Date starttime, long duration, Location location) {
+    public Event(String name, long starttime, long duration, Location location) {
+        this.name = name;
 		this.starttime = starttime;
 		this.duration = duration;
         this.location = location;
@@ -37,6 +39,6 @@ public class Event {
     
     @Override
     public String toString() {
-        return "Event{"+id+":" + starttime + ", " + duration + ", @"+location+"}";
+        return "Event{"+id+":" + name + ", " + starttime + ", " + duration + ", @"+location+"}";
     }
 }
