@@ -7,9 +7,12 @@
         {{> fragments/head.hbs}}
         
         <div>select_event</div>
-
+        <br/>
+        <div>Currently selected: {{userSelectedEvent}}</div>
+        <br/>
         <div>
             <!-- //TODO Make dropdown or something -->
+            <div>Select event:</div>
             <ul>
               {{#each userRegisteredEvents}}
               <li><a onclick='selectEvent(extractId(&#39;{{this}}&#39;))'>{{this}}</a></li>
