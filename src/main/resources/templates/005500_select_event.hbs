@@ -3,7 +3,51 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<div>select_event</div>
-<a href=""></a>
+    <body>
+        {{> fragments/head.hbs}}
+        
+        <div>select_event</div>
 
+        <div>
+            <!-- //TODO Make dropdown or something -->
+            <ul>
+              {{#each userRegisteredEvents}}
+              <li><a onclick='selectEvent(extractId(&#39;{{this}}&#39;))'>{{this}}</a></li>
+              {{/each}}
+            </ul>
+        </div>
+
+        {{> fragments/result_modal.hbs}}
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+
+        <a href="schedule_signup">schedule signup</a>
+    </body>
+
+    <script type="text/javascript">
+        function extractId(eventString) {
+            return eventString.match(/Event\{([a-f0-9]+):/)[1];
+        }
+        
+        function selectEvent(eventId) {
+            $.ajax({
+                type: "post",
+                url: "/s/post/select_event",
+                data: {eventId: eventId},
+                success: function (response) {
+                    $("#alertBoxModal").css({"background-color": "rgba(16,71,116,0.9)"});
+                    $("#logModal").html("<strong>Successfully selected event: <span id='eventName'></span></strong>");
+                    $("#eventName")[0].textContent = response;
+                },
+                error: function () {
+                    $("#alertBoxModal").css({"background-color": "rgba(255,44,30,0.66)"});
+                    $("#logModal").html("<strong>An error has occurred</strong>");
+                }
+            });
+        }
+    </script>
 </html>

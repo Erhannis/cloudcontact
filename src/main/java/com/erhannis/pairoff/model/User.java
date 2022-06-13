@@ -5,6 +5,7 @@
  */
 package com.erhannis.pairoff.model;
 
+import com.google.common.base.Objects;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,6 +67,10 @@ public class User {
     @Reference
     public Set<Event> registeredEvents = new HashSet<Event>();
     
+    //TODO This is a bit of a weird one; more transient than the rest of these.  Still, it seemed best.
+    @Reference
+    public Event selectedEvent = null; // Optional, sorta.  Is it sensitive?
+    
     public User() {
         
     }
@@ -103,6 +108,25 @@ public class User {
         return matchInfo.entrySet().stream().sorted((o1, o2) -> {
             return -o1.getKey().compareTo(o2.getKey());
         }).findFirst().map(e -> e.getValue()).orElse(substituteDefault ? email : null);
+    }
+    
+    public Event getSelectedEvent() {
+        if (registeredEvents.contains(selectedEvent)) {
+            return selectedEvent;
+        } else {
+            //TODO Clear selectedEvent?  ...Eh, probably not
+            return null;
+        }
+    }
+    
+    public boolean setSelectedEvent(Event newSelectedEvent) {
+        if (registeredEvents.stream().anyMatch(e -> Objects.equal(e.id, newSelectedEvent.id))) {
+            this.selectedEvent = newSelectedEvent;
+            return true;
+        } else {
+            //TODO Throw error?
+            return false;
+        }
     }
     
     

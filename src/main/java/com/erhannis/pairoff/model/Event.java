@@ -12,10 +12,9 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 
 @Entity("event_tbl")
-public class Event {
-    
+public class Event {    
     @Id
-    private ObjectId id;
+    public ObjectId id;
     
     public String name;
     public long starttime = 0;

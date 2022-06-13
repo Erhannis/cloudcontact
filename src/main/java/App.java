@@ -21,6 +21,7 @@ import com.erhannis.pairoff.contact.LocationController;
 import com.erhannis.pairoff.contact.UserController;
 import com.erhannis.pairoff.db.DatabaseHelper;
 import com.erhannis.pairoff.index.IndexController;
+import com.erhannis.pairoff.model.Event;
 import com.erhannis.pairoff.model.User;
 import com.erhannis.pairoff.util.JsonTransformer;
 import com.erhannis.pairoff.util.Path;
@@ -57,7 +58,7 @@ public class App {
 		
 		//initiate our DatabaseHelper that will map our Model Classes
 		new DatabaseHelper();
-                
+        
         //ensure user is logged in to have access to protected routes
         before("/s/*", (req, res) -> {
             logger.warn("BEFORE TRIGGERED " + req.url());
@@ -137,6 +138,7 @@ public class App {
         put("/s/put/account_details", (req, res) -> {return UserController.handleUpdateUserDetails(req, res); });
         
         post("/s/post/event_signup", (req, res) -> {return handleEventSignup(req, res); });
+        post("/s/post/select_event", (req, res) -> {return handleSelectEvent(req, res); });
 		
 //		handle CRUD routes for contacts
 		get("/s/contacts", (req, res) -> {return ContactController.serveDashboard(req, res);}, new HandlebarsTemplateEngine());
@@ -206,7 +208,9 @@ public class App {
         map.put("userAcceptableMinAge", u.minAge);
         map.put("userAcceptableMaxAge", u.maxAge);
         map.put("userMatchInfo", u.getCurrentMatchText(false));
-
+        map.put("userRegisteredEvents", u.registeredEvents);
+        map.put("userSelectedEvent", u.selectedEvent);
+        
         return map;
     }
 
@@ -232,35 +236,20 @@ public class App {
     public String handleEventSignup(Request req, Response res) {
         //DO Require proper page order
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            // Apparently calling req.body() prevents you from reading queryParams from it
-            //logger.info("raw body in handleUpdateUser = \n" + req.body());
-
-            //JsonNode data = objectMapper.readTree(req.body());
-
-            //TODO The path actually includes a user id....
-//            String userId = req.params("id");
-//            String thisUserId = req.session(false).attribute(Path.Web.ATTR_USER_ID);
-//            if (!Objects.equal(userId, thisUserId)) {
-//                logger.info("User not authorized to update different user's info; failing");
-//                res.status(403);
-//                return res.status();
-//            }
-            String userId = req.session(false).attribute(Path.Web.ATTR_USER_ID);
-
             String eventCode = Strings.nullToEmpty(req.queryParams("eventCode")).trim();
-            
-//            Datastore ds = dbHelper.getDataStore();
-//            User u = ds.get(User.class, new ObjectId(userId));
-//            ds.save(u);
 
-            //DO Actually register for event
-
-            if (eventCode.contains("code")) {
+            //TODO Not really a good event code mechanism
+            Datastore ds = dbHelper.getDataStore();
+            Event e = ds.get(Event.class, new ObjectId(eventCode));
+            if (e != null) {
+                String userId = req.session(false).attribute(Path.Web.ATTR_USER_ID).toString();
+                User u = ds.get(User.class, new ObjectId(userId));
+                u.registeredEvents.add(e);
+                ds.save(u);
+                
                 logger.info("registered for event");
                 res.status(200);
-                return ("Joe's " + eventCode + " Convention");
+                return (e.name);
             } else {
                 logger.info("incorrect event code");
                 res.status(422);
@@ -275,5 +264,43 @@ public class App {
 
         return res.body();
     }
-	
+
+    //TODO Move somewhere more fitting
+    public String handleSelectEvent(Request req, Response res) {
+        //DO Require proper page order
+        try {
+            String eventId = Strings.nullToEmpty(req.queryParams("eventId")).trim();
+
+            Datastore ds = dbHelper.getDataStore();
+            Event e = ds.get(Event.class, new ObjectId(eventId));
+            if (e != null) {
+                String userId = req.session(false).attribute(Path.Web.ATTR_USER_ID).toString();
+                User u = ds.get(User.class, new ObjectId(userId));
+                boolean success = u.setSelectedEvent(e);
+                ds.save(u);
+
+                if (success) {
+                    logger.info("selected event");
+                    res.status(200);
+                    return (e.name);
+                } else {
+                    logger.info("failed to select event");
+                    res.status(500);
+                    return ("failed to select event");
+                }
+            } else {
+                logger.info("incorrect event id");
+                res.status(422);
+                return "incorrect event id";
+            }
+        } catch (Exception e) {
+            //TODO Just throw the exception?
+            logger.info("error parsing data from handleSelectEvent \n");
+            e.printStackTrace();
+            res.status(500);
+        }
+
+        return res.body();
+    }
+    
 }

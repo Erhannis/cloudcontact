@@ -20,6 +20,7 @@ TODO
 security/legal concerns
   name, dob, email, phone are PII
   cookies warning
+  ensure cookie is https and secure
   ugh, ToS
   semi-public aliases?  for pre-match naming.
   resolve blah+X@address.com aliases, against ban avoidance?
