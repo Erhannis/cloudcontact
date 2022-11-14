@@ -189,6 +189,7 @@ out-of-flow events
     should declining also update db?
       ok, now it does.
   the Uses of Information do not exist yet
+    it's fixed.
   doesn't seem to check flow progress and redirect/block user
   /s/account_details does no validation?
   /s/event_signup should probably autoselect registered events

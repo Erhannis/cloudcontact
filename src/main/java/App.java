@@ -125,8 +125,8 @@ public class App {
         get("/logout",                   (req, res) -> { return AuthController.handleSignOut(req, res); });
         get("/help",                     (req, res) -> { return new ModelAndView(null, "012000_help.hbs"); }, new HandlebarsTemplateEngine());
         get("/s/account_signup_confirm", (req, res) -> { return requireLoggedIn(req, res, "002000_account_signup_confirm.hbs"); }, new HandlebarsTemplateEngine());
-        get("/s/accept_tos", (req, res) -> { return acceptToS(req, res, true); }, new HandlebarsTemplateEngine());
-        get("/s/decline_tos", (req, res) -> { return acceptToS(req, res, false); }, new HandlebarsTemplateEngine());
+        get("/s/accept_tos",             (req, res) -> { return acceptToS(req, res, true); }, new HandlebarsTemplateEngine());
+        get("/s/decline_tos",            (req, res) -> { return acceptToS(req, res, false); }, new HandlebarsTemplateEngine());
         get("/s/account_details",        (req, res) -> { return requireLoggedIn(req, res, "004000_account_details.hbs"); }, new HandlebarsTemplateEngine());
         get("/s/event_signup",           (req, res) -> { return requireLoggedIn(req, res, "005000_event_signup.hbs"); }, new HandlebarsTemplateEngine());
         get("/s/select_event",           (req, res) -> { return requireLoggedIn(req, res, "005500_select_event.hbs"); }, new HandlebarsTemplateEngine());
@@ -136,6 +136,7 @@ public class App {
         get("/s/in_session",             (req, res) -> { return requireLoggedIn(req, res, "009000_in_session.hbs"); }, new HandlebarsTemplateEngine());
         get("/s/matches",                (req, res) -> { return requireLoggedIn(req, res, "010000_matches.hbs"); }, new HandlebarsTemplateEngine());
         get("/s/notifications",          (req, res) -> { return requireLoggedIn(req, res, "011000_notifications.hbs"); }, new HandlebarsTemplateEngine());
+        get("/s/uses_of_information",    (req, res) -> { return requireLoggedIn(req, res, "013000_uses_of_information.hbs"); }, new HandlebarsTemplateEngine());
 
         put("/s/put/account_details", (req, res) -> {return UserController.handleUpdateUserDetails(req, res); });
         
