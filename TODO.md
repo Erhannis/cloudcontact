@@ -16,7 +16,6 @@ TODO
     POSSIBLY allow administrative corrections
     flags, bans, etc.
 
-
 security/legal concerns
   name, dob, email, phone are PII
   cookies warning
@@ -181,4 +180,17 @@ user process
 out-of-flow events
   report incidents?  (ugh, then I'd have to DEAL with incidents...)
     as noted - I think I can leave that to con staff  :)
-  
+
+
+
+2022-11-13:
+  Confirming ToS doesn't update db
+    ok, now it does.
+    should declining also update db?
+      ok, now it does.
+  the Uses of Information do not exist yet
+  doesn't seem to check flow progress and redirect/block user
+  /s/account_details does no validation?
+  /s/event_signup should probably autoselect registered events
+  >= /s/schedule_signup not implemented
+  admin area denial just shows blank screen

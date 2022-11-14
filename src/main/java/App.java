@@ -125,6 +125,8 @@ public class App {
         get("/logout",                   (req, res) -> { return AuthController.handleSignOut(req, res); });
         get("/help",                     (req, res) -> { return new ModelAndView(null, "012000_help.hbs"); }, new HandlebarsTemplateEngine());
         get("/s/account_signup_confirm", (req, res) -> { return requireLoggedIn(req, res, "002000_account_signup_confirm.hbs"); }, new HandlebarsTemplateEngine());
+        get("/s/accept_tos", (req, res) -> { return acceptToS(req, res, true); }, new HandlebarsTemplateEngine());
+        get("/s/decline_tos", (req, res) -> { return acceptToS(req, res, false); }, new HandlebarsTemplateEngine());
         get("/s/account_details",        (req, res) -> { return requireLoggedIn(req, res, "004000_account_details.hbs"); }, new HandlebarsTemplateEngine());
         get("/s/event_signup",           (req, res) -> { return requireLoggedIn(req, res, "005000_event_signup.hbs"); }, new HandlebarsTemplateEngine());
         get("/s/select_event",           (req, res) -> { return requireLoggedIn(req, res, "005500_select_event.hbs"); }, new HandlebarsTemplateEngine());
@@ -212,6 +214,47 @@ public class App {
         map.put("userSelectedEvent", u.selectedEvent);
         
         return map;
+    }
+    
+    public ModelAndView acceptToS(Request req, Response res, boolean accept) {
+        //get user particulars from the req.session
+        //they must not be null, else the user wil be redirected to the login page
+        //TODO This doesn't work; it just throws an NPE
+        String userId = req.session(false).attribute(Path.Web.ATTR_USER_ID).toString();
+        //TODO Does "email" come from the session???
+        String email = req.session(false).attribute(Path.Web.ATTR_EMAIL).toString();
+
+        if (userId != null && !userId.isEmpty()) {
+            Datastore ds = dbHelper.getDataStore();
+            User u = ds.get(User.class, new ObjectId(userId));
+            
+            if (accept) {
+                u.acceptedTOS = true;
+                ds.save(u);
+
+                logger.info("user accepted ToS");
+                res.header("Account Details", "/s/account_details"); //THINK Is this where they should go?
+                res.redirect("/s/account_details");
+                return null;
+            } else {
+                u.acceptedTOS = false;
+                ds.save(u);
+
+                logger.info("user declined ToS");
+                Session session = req.session(false); // Sign them out
+                if (session != null) {
+                    session.invalidate();
+                }
+                res.header("Home page", "/"); //THINK Is this where they should go?
+                res.redirect("/");
+                return null;
+            }
+        } else {
+            logger.warn("userID not found in Session"); //session expired
+            res.header("Location", "/login");
+            res.redirect("/login");
+            return null;
+        }
     }
 
 	
