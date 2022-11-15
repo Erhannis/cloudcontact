@@ -71,8 +71,16 @@ public class UserController {
             if (Boolean.valueOf(req.queryParams("userAttractionOther"))) {
                 u.attractedTo.add(User.Gender.OTHER);
             }
-            u.minAge = Integer.parseInt(Strings.nullToEmpty(req.queryParams("userAcceptableMinAge")).trim());
-            u.maxAge = Integer.parseInt(Strings.nullToEmpty(req.queryParams("userAcceptableMaxAge")).trim());
+            try {
+                u.minAge = Integer.parseInt(Strings.nullToEmpty(req.queryParams("userAcceptableMinAge")).trim());
+            } catch (Throwable t) {
+                u.minAge = null;
+            }
+            try {
+                u.maxAge = Integer.parseInt(Strings.nullToEmpty(req.queryParams("userAcceptableMaxAge")).trim());
+            } catch (Throwable t) {
+                u.maxAge = null;
+            }
             String curMatchText = Strings.nullToEmpty(u.getCurrentMatchText(false)).trim();
             String newMatchText = Strings.nullToEmpty(req.queryParams("userMatchInfo")).trim();
             if (!newMatchText.isEmpty() && (curMatchText.isEmpty() || !Objects.equal(curMatchText, newMatchText))) {

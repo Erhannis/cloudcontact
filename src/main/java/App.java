@@ -138,10 +138,10 @@ public class App {
         get("/s/notifications",          (req, res) -> { return requireLoggedIn(req, res, "011000_notifications.hbs"); }, new HandlebarsTemplateEngine());
         get("/s/uses_of_information",    (req, res) -> { return requireLoggedIn(req, res, "013000_uses_of_information.hbs"); }, new HandlebarsTemplateEngine());
 
-        put("/s/put/account_details", (req, res) -> {return UserController.handleUpdateUserDetails(req, res); });
+        put("/s/put/account_details",    (req, res) -> {return UserController.handleUpdateUserDetails(req, res); });
         
-        post("/s/post/event_signup", (req, res) -> {return handleEventSignup(req, res); });
-        post("/s/post/select_event", (req, res) -> {return handleSelectEvent(req, res); });
+        post("/s/post/event_signup",     (req, res) -> {return handleEventSignup(req, res); });
+        post("/s/post/select_event",     (req, res) -> {return handleSelectEvent(req, res); });
 		
 //		handle CRUD routes for contacts
 		get("/s/contacts", (req, res) -> {return ContactController.serveDashboard(req, res);}, new HandlebarsTemplateEngine());
@@ -156,12 +156,16 @@ public class App {
         get("/a/admin",                  (req, res) -> { return requireLoggedIn(req, res, "a_001000_admin.hbs"); }, new HandlebarsTemplateEngine());
         get("/a/locations",              (req, res) -> { return LocationController.serveIndex(req, res, "a_002000_locations.hbs"); }, new HandlebarsTemplateEngine());
         get("/a/events",                 (req, res) -> { return EventController.serveIndex(req, res, "a_003000_events.hbs"); }, new HandlebarsTemplateEngine());
+        get("/a/sessions",               (req, res) -> { return SessionController.serveIndex(req, res, "a_004000_sessions.hbs"); }, new HandlebarsTemplateEngine());
 
         post("/a/post/create_location",  (req, res) -> { return LocationController.handleNewLocation(req, res); });
         put("/a/put/update_location",    (req, res) -> { return LocationController.handleUpdateLocation(req, res); });
 
         post("/a/post/create_event",     (req, res) -> { return EventController.handleNewEvent(req, res); });
         put("/a/put/update_event",       (req, res) -> { return EventController.handleUpdateEvent(req, res); });
+
+        post("/a/post/create_session",   (req, res) -> { return SessionController.handleNewSession(req, res); });
+        put("/a/put/update_session",     (req, res) -> { return SessionController.handleUpdateSession(req, res); });
     }
 
     public ModelAndView requireLoggedIn(Request req, Response res, String intendedView) {

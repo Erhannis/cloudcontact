@@ -24,7 +24,7 @@ public class User {
         CISFEMALE,
         TRANSMALE,
         TRANSFEMALE,
-        OTHER;
+        OTHER; //CHECK Apparently nonbinary is more common than simple transgender.  I should probably consult with somebody.
         
         @Override
         public String toString() {
@@ -48,7 +48,7 @@ public class User {
     public String email = ""; // Required //SENSITIVE
     public String salt = ""; //TODO Are these sensitive?
     public String verifier = "";
-    public String token = "";
+    public String token = ""; //TODO This isn't used anywhere?
     
     public boolean admin = false;
     
