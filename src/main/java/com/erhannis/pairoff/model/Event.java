@@ -20,7 +20,7 @@ public class Event {
     public long starttime = 0;
     public long duration = 0;
     @Reference
-    public Location location;
+    public Location location; //CHECK Hang on, I thought an event has multiple locations?
     @Reference
     public List<Session> sessions = new ArrayList<Session>();
     

@@ -6,6 +6,7 @@ package com.erhannis.pairoff.contact;
 import com.erhannis.pairoff.db.DatabaseHelper;
 import com.erhannis.pairoff.model.Event;
 import com.erhannis.pairoff.model.Location;
+import com.erhannis.pairoff.model.Session;
 import com.erhannis.pairoff.model.User;
 import com.erhannis.pairoff.util.Path;
 import org.mongodb.morphia.Datastore;
@@ -28,19 +29,41 @@ public class SessionController {
     }
 
     public static ModelAndView serveIndex(Request req, Response res, String intendedView) {
+        //THINK This is for the admin page - perhaps it should permit event selection here?  ...Nah, it seems reasonable to only deal with one event at a time, for now.
         HashMap<String, Object> model = new HashMap<>();
 
         Datastore ds = dbHelper.getDataStore();
-        List<Event> events = ds.find(Event.class).asList();
-
-        model.put("events", events);
+        
+        String userId = req.session(false).attribute(Path.Web.ATTR_USER_ID).toString();
+        User u = ds.get(User.class, new ObjectId(userId));
+        Event e = u.getSelectedEvent(); //DUMMY Handle null event
+        model.put("event", e);
+        model.put("sessions", e.sessions);
 
         return new ModelAndView(model, intendedView);
     }
     
-    public static String handleNewEvent(Request req, Response res) {
+    public static String handleNewSession(Request req, Response res) {
+        //DUMMY Fix
         try {
             Datastore ds = dbHelper.getDataStore();
+
+            //THINK Should permit specifying event?
+            String userId = req.session(false).attribute(Path.Web.ATTR_USER_ID).toString();
+            User u = ds.get(User.class, new ObjectId(userId));
+            Event event = u.getSelectedEvent(); //DUMMY Handle null event
+            if (event == null) {
+                res.status(404);
+                return "No event selected";
+            }
+            
+//            String eventId = Strings.nullToEmpty(req.queryParams("eventId")).trim();
+//            Event event = ds.get(Event.class, new ObjectId(eventId));
+//            if (event == null) {
+//                res.status(404);
+//                return "Event not found";
+//            }
+
             String locationId = Strings.nullToEmpty(req.queryParams("locationId")).trim();
             Location location = ds.get(Location.class, new ObjectId(locationId));
             if (location == null) {
@@ -48,27 +71,34 @@ public class SessionController {
                 return "Location not found";
             }
             
-            Event e = new Event();
-            e.name = Strings.nullToEmpty(req.queryParams("name")).trim();
-            e.starttime = Long.parseLong(Strings.nullToEmpty(req.queryParams("starttime")).trim());
-            e.duration = Long.parseLong(Strings.nullToEmpty(req.queryParams("duration")).trim());
-            //e.sessions;
-            e.location = location;
-            ds.save(e);
+            
+            Session x = new Session();
+            x.starttime = Long.parseLong(Strings.nullToEmpty(req.queryParams("starttime")).trim());
+            x.duration = Long.parseLong(Strings.nullToEmpty(req.queryParams("duration")).trim());
+            //x.sessions;
+            x.location = location;
+            //DITTO //CHECK speedDates, or maxParticipants?
+            
+            event.sessions.add(x);
+            
+            ds.save(x, event); //THINK Is this atomic, a transaction?  Like, could one be saved but not the other?
+
             res.status(200);
         } catch (Exception e) {
             e.printStackTrace();
             res.status(500);
         }
 
-        //TODO Return event object?
+        //TODO Return session object?
         return "";
     }
 
-    public static String handleUpdateEvent(Request req, Response res) {
+    public static String handleUpdateSession(Request req, Response res) {
+        //DUMMY Fix
         try {
             String id = Strings.nullToEmpty(req.queryParams("id")).trim();
             Datastore ds = dbHelper.getDataStore();
+            
             String locationId = Strings.nullToEmpty(req.queryParams("locationId")).trim();
             Location location = ds.get(Location.class, new ObjectId(locationId));
             if (location == null) {
@@ -76,13 +106,17 @@ public class SessionController {
                 return "Location not found";
             }
             
-            Event e = ds.get(Event.class, new ObjectId(id));
-            e.name = Strings.nullToEmpty(req.queryParams("name")).trim();
-            e.starttime = Long.parseLong(Strings.nullToEmpty(req.queryParams("starttime")).trim());
-            e.duration = Long.parseLong(Strings.nullToEmpty(req.queryParams("duration")).trim());
-            //e.sessions;
-            e.location = location;
-            ds.save(e);
+            //DUMMY Doesn't currently permit moving to different event...maybe that's ok
+            
+            Session x = ds.get(Session.class, new ObjectId(id));
+            x.starttime = Long.parseLong(Strings.nullToEmpty(req.queryParams("starttime")).trim());
+            x.duration = Long.parseLong(Strings.nullToEmpty(req.queryParams("duration")).trim());
+            //x.sessions;
+            x.location = location;
+            //DITTO //CHECK speedDates, or maxParticipants?
+            
+            ds.save(x);
+            
             res.status(200);
         } catch (Exception e) {
             e.printStackTrace();

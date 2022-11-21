@@ -18,6 +18,7 @@ import com.erhannis.pairoff.auth.ChallengeGen;
 import com.erhannis.pairoff.contact.ContactController;
 import com.erhannis.pairoff.contact.EventController;
 import com.erhannis.pairoff.contact.LocationController;
+import com.erhannis.pairoff.contact.SessionController;
 import com.erhannis.pairoff.contact.UserController;
 import com.erhannis.pairoff.db.DatabaseHelper;
 import com.erhannis.pairoff.index.IndexController;

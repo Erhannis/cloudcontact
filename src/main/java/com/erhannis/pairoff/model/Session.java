@@ -17,19 +17,20 @@ public class Session {
     @Id
     private ObjectId id;
     
-    public Date starttime = null;
+    public long starttime = 0; //THINK This was Date, but I changed it to long to match Event.starttime; should?
     public long duration = 0;
     @Reference
-    public Location location;
+    public Location location; //CHECK Something's weird.  This is either a different category of Location from the Event's Location, or something's wrong.
     @Reference
     public List<SpeedDate> speedDates = new ArrayList<SpeedDate>();
+    //DUMMY Either the Session or the Location needs a maxParticipants count.
     
     
     public Session() {
         
     }
     
-    public Session(Date starttime, long duration, Location location) {
+    public Session(long starttime, long duration, Location location) {
 		this.starttime = starttime;
 		this.duration = duration;
         this.location = location;

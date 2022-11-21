@@ -119,7 +119,7 @@ public class User {
         }
     }
     
-    public boolean setSelectedEvent(Event newSelectedEvent) {
+    public boolean setSelectedEvent(Event newSelectedEvent) { //THINK Should this be set on the User, or on the browser session?
         if (registeredEvents.stream().anyMatch(e -> Objects.equal(e.id, newSelectedEvent.id))) {
             this.selectedEvent = newSelectedEvent;
             return true;

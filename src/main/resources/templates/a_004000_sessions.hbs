@@ -7,6 +7,8 @@
         {{> fragments/head.hbs}}
         
         <div>sessions</div>
+        
+        <!-- //DUMMY Show current event.  Maybe in header?  Probably in header. -->
 
         <div>
             <ul>
@@ -16,16 +18,16 @@
             </ul>
         </div>
         
-        <form id="updateEventForm" style="border: 1px solid black">
+        <form id="updateSessionForm" style="border: 1px solid black">
             <ul>
                 <li>
                     <label for="u_id">ID:</label><br/>
                     <input class="dataInput" type="text" name="u_id" id="u_id" required /><br/><br/>
                 </li>
-                <li>
-                    <label for="u_name">Name:</label><br/>
-                    <input class="dataInput" type="text" name="u_name" id="u_name" required /><br/><br/>
-                </li>
+<!--                <li>
+                    <label for="u_event_id">Event ID:</label><br/>
+                    <input class="dataInput" type="text" name="u_event_id" id="u_event_id" required /><br/><br/>
+                </li>-->
                 <li>
                     <label for="u_starttime">Start time:</label><br/>
                     <input class="dataInput" type="number" id="u_starttime" name="u_starttime" /><br/><br/>
@@ -38,15 +40,16 @@
                     <label for="u_location_id">Location ID:</label><br/>
                     <input class="dataInput" type="text" name="u_location_id" id="u_location_id" required /><br/><br/>
                 </li>
+                <!-- //CHECK speedDates, or maxParticipants? -->
                 <input type="submit" name="updateBt" id="updateBt" value="Update" />
             </ul>
         </form>
-        <form id="createEventForm" style="border: 1px solid black">
+        <form id="createSessionForm" style="border: 1px solid black">
             <ul>
-                <li>
-                    <label for="c_name">Name:</label><br/>
-                    <input class="dataInput" type="text" name="c_name" id="c_name" required /><br/><br/>
-                </li>
+<!--                <li>
+                    <label for="c_event_id">Event ID:</label><br/>
+                    <input class="dataInput" type="text" name="c_event_id" id="c_event_id" required /><br/><br/>
+                </li>-->
                 <li>
                     <label for="c_starttime">Start time:</label><br/>
                     <input class="dataInput" type="number" id="c_starttime" name="c_starttime" /><br/><br/>
@@ -59,6 +62,7 @@
                     <label for="c_location_id">Location ID:</label><br/>
                     <input class="dataInput" type="text" name="c_location_id" id="c_location_id" required /><br/><br/>
                 </li>
+                <!-- //DITTO //CHECK speedDates, or maxParticipants? -->
                 <input type="submit" name="createBt" id="createBt" value="Create" />
             </ul>
         </form>
@@ -79,27 +83,29 @@
         }
         
         $(document).ready(function () {
-            $("#updateEventForm").on('submit', function (event) {
+            $("#updateSessionForm").on('submit', function (event) {
                 event.preventDefault();
 
                 $.ajax({
                     type: "put",
-                    url: "/a/put/update_event",
+                    url: "/a/put/update_session",
                     data: {
                         id: $("#u_id").val(),
-                        name: $("#u_name").val(),
+                        //eventId: $("#u_event_id").val(),
                         starttime: $("#u_starttime").val(),
                         duration: $("#u_duration").val(),
                         locationId: $("#u_location_id").val()
+                        //DITTO //CHECK speedDates, or maxParticipants?
                     },
                     success: function (response) {
                         $("#alertBoxModal").css({"background-color": "rgba(16,71,116,0.9)"});
                         $("#logModal").html("<strong>Successfully updated event</strong>");
                         $("#u_id").val("");
-                        $("#u_name").val("");
+                        //$("#u_event_id").val("");
                         $("#u_starttime").val("");
                         $("#u_duration").val("");
                         $("#u_location_id").val("");
+                        //DITTO //CHECK speedDates, or maxParticipants?
                     },
                     error: function () {
                         $("#alertBoxModal").css({"background-color": "rgba(255,44,30,0.66)"});
@@ -108,25 +114,27 @@
                 });
             });
             
-            $("#createEventForm").on('submit', function (event) {
+            $("#createSessionForm").on('submit', function (event) {
                 event.preventDefault();
 
                 $.ajax({
                     type: "post",
-                    url: "/a/post/create_event",
+                    url: "/a/post/create_session",
                     data: {
-                        name: $("#c_name").val(),
+                        //eventId: $("#c_event_id").val(),
                         starttime: $("#c_starttime").val(),
                         duration: $("#c_duration").val(),
                         locationId: $("#c_location_id").val()
+                        //DITTO //CHECK speedDates, or maxParticipants?
                     },
                     success: function (response) {
                         $("#alertBoxModal").css({"background-color": "rgba(16,71,116,0.9)"});
                         $("#logModal").html("<strong>Successfully created event</strong>");
-                        $("#c_name").val("");
+                        //$("#c_event_id").val("");
                         $("#c_starttime").val("");
                         $("#c_duration").val("");
                         $("#c_location_id").val("");
+                        //DITTO //CHECK speedDates, or maxParticipants?
                     },
                     error: function () {
                         $("#alertBoxModal").css({"background-color": "rgba(255,44,30,0.66)"});
