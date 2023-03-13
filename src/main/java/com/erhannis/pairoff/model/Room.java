@@ -8,25 +8,27 @@ package com.erhannis.pairoff.model;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 
-@Entity("location_tbl")
-public class Location {
+@Entity("room_tbl")
+public class Room {
     
     @Id
     private ObjectId id;
     
-    public String location = "";
+    public String location = ""; // E.g. "4th floor, Emerald Plaza"
+    public Integer maxParticipants; // Optional...kinda.
     
     
-    public Location() {
+    public Room() {
         
     }
     
-    public Location(String location) {
+    public Room(String location, Integer maxParticipants) {
 		this.location = location;
+        this.maxParticipants = maxParticipants;
     }
     
     @Override
     public String toString() {
-        return "Location{" + id + ":\"" + location + "\"}";
+        return "Room{" + id + ":\"" + location + "\", max: " + maxParticipants + "}";
     }
 }

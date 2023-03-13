@@ -12,7 +12,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 
 @Entity("event_tbl")
-public class Event {    
+public class Event {
     @Id
     public ObjectId id;
     
@@ -20,7 +20,7 @@ public class Event {
     public long starttime = 0;
     public long duration = 0;
     @Reference
-    public Location location; //CHECK Hang on, I thought an event has multiple locations?
+    public Venue eventLocation; // This is a general location, like "HOTEL at ADDRESS", mainly to help e.g. disambiguate events
     @Reference
     public List<Session> sessions = new ArrayList<Session>();
     
@@ -29,15 +29,15 @@ public class Event {
         
     }
     
-    public Event(String name, long starttime, long duration, Location location) {
+    public Event(String name, long starttime, long duration, Venue eventLocation) {
         this.name = name;
 		this.starttime = starttime;
 		this.duration = duration;
-        this.location = location;
+        this.eventLocation = eventLocation;
     }
     
     @Override
     public String toString() {
-        return "Event{"+id+":" + name + ", " + starttime + ", " + duration + ", @"+location+"}";
+        return "Event{"+id+":" + name + ", " + starttime + ", " + duration + ", @"+eventLocation+"}";
     }
 }

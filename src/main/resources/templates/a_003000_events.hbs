@@ -35,8 +35,8 @@
                     <input class="dataInput" type="number" id="u_duration" name="u_duration" /><br/><br/>
                 </li>
                 <li>
-                    <label for="u_location_id">Location ID:</label><br/>
-                    <input class="dataInput" type="text" name="u_location_id" id="u_location_id" required /><br/><br/>
+                    <label for="u_venue_id">Venue ID:</label><br/>
+                    <input class="dataInput" type="text" name="u_venue_id" id="u_venue_id" required /><br/><br/>
                 </li>
                 <input type="submit" name="updateBt" id="updateBt" value="Update" />
             </ul>
@@ -56,8 +56,8 @@
                     <input class="dataInput" type="number" id="c_duration" name="c_duration" /><br/><br/>
                 </li>
                 <li>
-                    <label for="c_location_id">Location ID:</label><br/>
-                    <input class="dataInput" type="text" name="c_location_id" id="c_location_id" required /><br/><br/>
+                    <label for="c_venue_id">Venue ID:</label><br/>
+                    <input class="dataInput" type="text" name="c_venue_id" id="c_venue_id" required /><br/><br/>
                 </li>
                 <input type="submit" name="createBt" id="createBt" value="Create" />
             </ul>
@@ -72,10 +72,13 @@
     </body>
 
     <script type="text/javascript">
-        function fillUpdate(id, location) {
-            //TODO Uncomment when id/location is fixed
+        function fillUpdate(id, name, starttime, duration, venue) {
+            //TODO Uncomment when id/venue is fixed
             //$("#u_id").val(id);
-            //$("#u_location").val(location);
+            //$("#u_name").val(name);
+            //$("#u_starttime").val(starttime);
+            //$("#u_duration").val(duration);
+            //$("#u_venue").val(venue);
         }
         
         $(document).ready(function () {
@@ -90,7 +93,7 @@
                         name: $("#u_name").val(),
                         starttime: $("#u_starttime").val(),
                         duration: $("#u_duration").val(),
-                        locationId: $("#u_location_id").val()
+                        venueId: $("#u_venue_id").val()
                     },
                     success: function (response) {
                         $("#alertBoxModal").css({"background-color": "rgba(16,71,116,0.9)"});
@@ -99,7 +102,7 @@
                         $("#u_name").val("");
                         $("#u_starttime").val("");
                         $("#u_duration").val("");
-                        $("#u_location_id").val("");
+                        $("#u_venue_id").val("");
                     },
                     error: function () {
                         $("#alertBoxModal").css({"background-color": "rgba(255,44,30,0.66)"});
@@ -118,7 +121,7 @@
                         name: $("#c_name").val(),
                         starttime: $("#c_starttime").val(),
                         duration: $("#c_duration").val(),
-                        locationId: $("#c_location_id").val()
+                        venueId: $("#c_venue_id").val()
                     },
                     success: function (response) {
                         $("#alertBoxModal").css({"background-color": "rgba(16,71,116,0.9)"});
@@ -126,7 +129,7 @@
                         $("#c_name").val("");
                         $("#c_starttime").val("");
                         $("#c_duration").val("");
-                        $("#c_location_id").val("");
+                        $("#c_venue_id").val("");
                     },
                     error: function () {
                         $("#alertBoxModal").css({"background-color": "rgba(255,44,30,0.66)"});

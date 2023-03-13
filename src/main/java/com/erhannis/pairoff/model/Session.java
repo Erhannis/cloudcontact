@@ -20,24 +20,23 @@ public class Session {
     public long starttime = 0; //THINK This was Date, but I changed it to long to match Event.starttime; should?
     public long duration = 0;
     @Reference
-    public Location location; //CHECK Something's weird.  This is either a different category of Location from the Event's Location, or something's wrong.
+    public Room sessionLocation; // This is a specific location at an event, like "4th floor, Emerald Plaza"
     @Reference
-    public List<SpeedDate> speedDates = new ArrayList<SpeedDate>();
-    //DUMMY Either the Session or the Location needs a maxParticipants count.
+    public List<SpeedDate> speedDates = new ArrayList<SpeedDate>(); //THINK Should a distinction be made between a slot and an actual SD between two specific people?
     
     
     public Session() {
         
     }
     
-    public Session(long starttime, long duration, Location location) {
+    public Session(long starttime, long duration, Room sessionLocation) {
 		this.starttime = starttime;
 		this.duration = duration;
-        this.location = location;
+        this.sessionLocation = sessionLocation;
     }
     
     @Override
     public String toString() {
-        return "Session{"+id+":" + starttime + ", " + duration + ", @"+location+"}";
+        return "Session{"+id+":" + starttime + ", " + duration + ", @"+sessionLocation+"}";
     }
 }

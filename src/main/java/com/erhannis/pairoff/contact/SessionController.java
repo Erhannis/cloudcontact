@@ -5,7 +5,7 @@ package com.erhannis.pairoff.contact;
 
 import com.erhannis.pairoff.db.DatabaseHelper;
 import com.erhannis.pairoff.model.Event;
-import com.erhannis.pairoff.model.Location;
+import com.erhannis.pairoff.model.Room;
 import com.erhannis.pairoff.model.Session;
 import com.erhannis.pairoff.model.User;
 import com.erhannis.pairoff.util.Path;
@@ -64,11 +64,11 @@ public class SessionController {
 //                return "Event not found";
 //            }
 
-            String locationId = Strings.nullToEmpty(req.queryParams("locationId")).trim();
-            Location location = ds.get(Location.class, new ObjectId(locationId));
-            if (location == null) {
+            String roomId = Strings.nullToEmpty(req.queryParams("roomId")).trim();
+            Room room = ds.get(Room.class, new ObjectId(roomId));
+            if (room == null) {
                 res.status(404);
-                return "Location not found";
+                return "Room not found";
             }
             
             
@@ -76,7 +76,7 @@ public class SessionController {
             x.starttime = Long.parseLong(Strings.nullToEmpty(req.queryParams("starttime")).trim());
             x.duration = Long.parseLong(Strings.nullToEmpty(req.queryParams("duration")).trim());
             //x.sessions;
-            x.location = location;
+            x.sessionLocation = room;
             //DITTO //CHECK speedDates, or maxParticipants?
             
             event.sessions.add(x);
@@ -99,11 +99,11 @@ public class SessionController {
             String id = Strings.nullToEmpty(req.queryParams("id")).trim();
             Datastore ds = dbHelper.getDataStore();
             
-            String locationId = Strings.nullToEmpty(req.queryParams("locationId")).trim();
-            Location location = ds.get(Location.class, new ObjectId(locationId));
-            if (location == null) {
+            String roomId = Strings.nullToEmpty(req.queryParams("roomId")).trim();
+            Room room = ds.get(Room.class, new ObjectId(roomId));
+            if (room == null) {
                 res.status(404);
-                return "Location not found";
+                return "Room not found";
             }
             
             //DUMMY Doesn't currently permit moving to different event...maybe that's ok
@@ -112,7 +112,7 @@ public class SessionController {
             x.starttime = Long.parseLong(Strings.nullToEmpty(req.queryParams("starttime")).trim());
             x.duration = Long.parseLong(Strings.nullToEmpty(req.queryParams("duration")).trim());
             //x.sessions;
-            x.location = location;
+            x.sessionLocation = room;
             //DITTO //CHECK speedDates, or maxParticipants?
             
             ds.save(x);

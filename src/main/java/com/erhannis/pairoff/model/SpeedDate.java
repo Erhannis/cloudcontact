@@ -25,11 +25,11 @@ public class SpeedDate {
     public Date starttime = null;
     public long duration = 0;
     @Reference
-    public Location location;
-    @Reference
     public User userA;
     @Reference
     public User userB;
+    
+    //THINK I removed "location" because it's redundant with Session containing this SpeedDate...I think.  Unless, to preserve a record despite changes?
 
     /*
     //TODO How to deal with results, and/or changes over time?
@@ -46,14 +46,13 @@ public class SpeedDate {
         
     }
     
-    public SpeedDate(Date starttime, long duration, Location location) {
+    public SpeedDate(Date starttime, long duration) {
 		this.starttime = starttime;
 		this.duration = duration;
-        this.location = location;
     }
     
     @Override
     public String toString() {
-        return "SpeedDate{"+id+":" + starttime + ", " + duration + ", @"+location+", ("+userA+":"+userB+")}";
+        return "SpeedDate{"+id+":" + starttime + ", " + duration + ", ("+userA+":"+userB+")}";
     }
 }

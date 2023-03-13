@@ -37,8 +37,8 @@
                     <input class="dataInput" type="number" id="u_duration" name="u_duration" /><br/><br/>
                 </li>
                 <li>
-                    <label for="u_location_id">Location ID:</label><br/>
-                    <input class="dataInput" type="text" name="u_location_id" id="u_location_id" required /><br/><br/>
+                    <label for="u_room_id">Room ID:</label><br/>
+                    <input class="dataInput" type="text" name="u_room_id" id="u_room_id" required /><br/><br/>
                 </li>
                 <!-- //CHECK speedDates, or maxParticipants? -->
                 <input type="submit" name="updateBt" id="updateBt" value="Update" />
@@ -59,8 +59,8 @@
                     <input class="dataInput" type="number" id="c_duration" name="c_duration" /><br/><br/>
                 </li>
                 <li>
-                    <label for="c_location_id">Location ID:</label><br/>
-                    <input class="dataInput" type="text" name="c_location_id" id="c_location_id" required /><br/><br/>
+                    <label for="c_room_id">Room ID:</label><br/>
+                    <input class="dataInput" type="text" name="c_room_id" id="c_room_id" required /><br/><br/>
                 </li>
                 <!-- //DITTO //CHECK speedDates, or maxParticipants? -->
                 <input type="submit" name="createBt" id="createBt" value="Create" />
@@ -76,10 +76,12 @@
     </body>
 
     <script type="text/javascript">
-        function fillUpdate(id, location) {
-            //TODO Uncomment when id/location is fixed
+        function fillUpdate(id, starttime, duration, room) {
+            //TODO Uncomment when id/room is fixed
             //$("#u_id").val(id);
-            //$("#u_location").val(location);
+            //$("#u_starttime").val(starttime);
+            //$("#u_duration").val(duration);
+            //$("#u_room").val(room);
         }
         
         $(document).ready(function () {
@@ -94,7 +96,7 @@
                         //eventId: $("#u_event_id").val(),
                         starttime: $("#u_starttime").val(),
                         duration: $("#u_duration").val(),
-                        locationId: $("#u_location_id").val()
+                        roomId: $("#u_room_id").val()
                         //DITTO //CHECK speedDates, or maxParticipants?
                     },
                     success: function (response) {
@@ -104,7 +106,7 @@
                         //$("#u_event_id").val("");
                         $("#u_starttime").val("");
                         $("#u_duration").val("");
-                        $("#u_location_id").val("");
+                        $("#u_room_id").val("");
                         //DITTO //CHECK speedDates, or maxParticipants?
                     },
                     error: function () {
@@ -124,7 +126,7 @@
                         //eventId: $("#c_event_id").val(),
                         starttime: $("#c_starttime").val(),
                         duration: $("#c_duration").val(),
-                        locationId: $("#c_location_id").val()
+                        roomId: $("#c_room_id").val()
                         //DITTO //CHECK speedDates, or maxParticipants?
                     },
                     success: function (response) {
@@ -133,7 +135,7 @@
                         //$("#c_event_id").val("");
                         $("#c_starttime").val("");
                         $("#c_duration").val("");
-                        $("#c_location_id").val("");
+                        $("#c_room_id").val("");
                         //DITTO //CHECK speedDates, or maxParticipants?
                     },
                     error: function () {

@@ -1,0 +1,103 @@
+<!-- rooms -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <body>
+        {{> fragments/head.hbs}}
+        
+        <div>rooms</div>
+
+        <div>
+            <ul>
+              {{#each rooms}}
+                <li onclick='fillUpdate("{{id}}", "{{location}}", "{{maxParticipants}}")'>{{this}}</li> <!-- //CHECK id/location/maxParticipants doesn't swap in -->
+              {{/each}}
+            </ul>
+        </div>
+        
+        <form id="updateRoomForm" style="border: 1px solid black">
+            <label for="u_id">ID</label><br/>
+            <input class="dataInput" type="text" name="u_id" id="u_id" required /><br/><br/>
+            <label for="u_location">Room:</label><br/>
+            <input class="dataInput" type="text" name="u_location" id="u_location" required /><br/><br/>
+            <label for="u_max_participants">Maximum participants: </label><br/>
+            <input class="dataInput" type="number" id="u_max_participants" name="u_max_participants" min="0" /><br/><br/>
+            <input type="submit" name="updateBt" id="updateBt" value="Update" />
+        </form>
+        <form id="createRoomForm" style="border: 1px solid black">
+            <label for="c_location">Room:</label><br/>
+            <input class="dataInput" type="text" name="c_location" id="c_location" required /><br/><br/>
+            <label for="c_max_participants">Maximum participants: </label><br/>
+            <input class="dataInput" type="number" id="c_max_participants" name="c_max_participants" min="0" /><br/><br/> <!-- //THINK Default e.g. 20? -->
+            <input type="submit" name="createBt" id="createBt" value="Create" />
+        </form>
+        {{> fragments/result_modal.hbs}}
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </body>
+
+    <script type="text/javascript">
+        function fillUpdate(id, location, maxParticipants) {
+            //TODO Uncomment when id/location/maxParticipants is fixed
+            //$("#u_id").val(id);
+            //$("#u_location").val(location);
+            //$("#u_max_participants").val(maxParticipants);
+        }
+        
+        $(document).ready(function () {
+            $("#updateRoomForm").on('submit', function (event) {
+                event.preventDefault();
+
+                $.ajax({
+                    type: "put",
+                    url: "/a/put/update_room",
+                    data: {
+                        id: $("#u_id").val(),
+                        location: $("#u_location").val(),
+                        maxParticipants: $("#u_max_participants").val()
+                    },
+                    success: function (response) {
+                        $("#alertBoxModal").css({"background-color": "rgba(16,71,116,0.9)"});
+                        $("#logModal").html("<strong>Successfully updated room</strong>");
+                        $("#u_id").val("");
+                        $("#u_location").val("");
+                        $("#u_maxParticipants").val(""); //THINK Replace with "20" or something?
+                    },
+                    error: function () {
+                        $("#alertBoxModal").css({"background-color": "rgba(255,44,30,0.66)"});
+                        $("#logModal").html("<strong>An error has occurred</strong>");
+                    }
+                });
+            });
+            
+            $("#createRoomForm").on('submit', function (event) {
+                event.preventDefault();
+
+                $.ajax({
+                    type: "post",
+                    url: "/a/post/create_room",
+                    data: {
+                        location: $("#c_location").val(),
+                        maxParticipants: $("#c_max_participants").val()
+                    },
+                    success: function (response) {
+                        $("#alertBoxModal").css({"background-color": "rgba(16,71,116,0.9)"});
+                        $("#logModal").html("<strong>Successfully created room</strong>");
+                        $("#c_location").val("");
+                        $("#c_max_participants").val(""); //DITTO
+                    },
+                    error: function () {
+                        $("#alertBoxModal").css({"background-color": "rgba(255,44,30,0.66)"});
+                        $("#logModal").html("<strong>An error has occurred</strong>");
+                    }
+                });
+            });
+        });
+    </script>
+    
+</html>

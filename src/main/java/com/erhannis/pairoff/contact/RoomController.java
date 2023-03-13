@@ -4,8 +4,9 @@
 package com.erhannis.pairoff.contact;
 
 import com.erhannis.pairoff.db.DatabaseHelper;
-import com.erhannis.pairoff.model.Location;
+import com.erhannis.pairoff.model.Room;
 import com.erhannis.pairoff.model.User;
+import com.erhannis.pairoff.util.Misc;
 import com.erhannis.pairoff.util.Path;
 import org.mongodb.morphia.Datastore;
 import org.slf4j.Logger;
@@ -19,50 +20,53 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-public class LocationController {
+public class RoomController {
     static DatabaseHelper dbHelper = new DatabaseHelper();
-    static Logger logger = LoggerFactory.getLogger(LocationController.class);
+    static Logger logger = LoggerFactory.getLogger(RoomController.class);
 
-    public LocationController() {
+    public RoomController() {
     }
 
     public static ModelAndView serveIndex(Request req, Response res, String intendedView) {
         HashMap<String, Object> model = new HashMap<>();
 
         Datastore ds = dbHelper.getDataStore();
-        List<Location> locations = ds.find(Location.class).asList();
+        List<Room> rooms = ds.find(Room.class).asList();
 
-        model.put("locations", locations);
+        model.put("rooms", rooms);
 
         return new ModelAndView(model, intendedView);
     }
     
-    public static int handleNewLocation(Request req, Response res) {
+    public static int handleNewRoom(Request req, Response res) {
         try {
             String location = Strings.nullToEmpty(req.queryParams("location")).trim();
+            Integer maxParticipants = Misc.tryParseInt(req.queryParams("maxParticipants"));
         
             Datastore ds = dbHelper.getDataStore();
-            Location l = new Location(location);
-            ds.save(l);
+            Room r = new Room(location, maxParticipants);
+            ds.save(r);
             res.status(200);
         } catch (Exception e) {
             e.printStackTrace();
             res.status(500);
         }
 
-        //TODO Return location object?
+        //TODO Return room object?
         return res.status();
     }
 
-    public static int handleUpdateLocation(Request req, Response res) {
+    public static int handleUpdateRoom(Request req, Response res) {
         try {
             String id = Strings.nullToEmpty(req.queryParams("id")).trim();
             String location = Strings.nullToEmpty(req.queryParams("location")).trim();
+            Integer maxParticipants = Misc.tryParseInt(req.queryParams("maxParticipants"));
             
             Datastore ds = dbHelper.getDataStore();
-            Location l = ds.get(Location.class, new ObjectId(id));
-            l.location = location;
-            ds.save(l);
+            Room r = ds.get(Room.class, new ObjectId(id));
+            r.location = location;
+            r.maxParticipants = maxParticipants;
+            ds.save(r);
             res.status(200);
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,5 +76,5 @@ public class LocationController {
         return res.status();
     }
 
-    // public static Object handleDeleteLocation(Request req, Response res) //TODO Do?
+    // public static Object handleDeleteRoom(Request req, Response res) //TODO Do?
 }

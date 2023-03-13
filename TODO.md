@@ -9,8 +9,9 @@ TODO
   hook it together
   admin UI
     create:
-      Location
+      Venue
       Event
+      Room
       Session? (maybe automatic)
     get Event code(s)
     POSSIBLY allow administrative corrections
@@ -23,6 +24,8 @@ security/legal concerns
   ugh, ToS
   semi-public aliases?  for pre-match naming.
   resolve blah+X@address.com aliases, against ban avoidance?
+  liability disclaimer
+  permit erasing data?
 
 misc concerns
   materials
